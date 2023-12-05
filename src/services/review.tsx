@@ -23,7 +23,6 @@ export const updateReview = async (
     .from('reviews')
     .update({ ...reviewPayload })
     .eq('id', id as string)
-    .select()
     .select();
   const { data, error } = await query;
   return { data, error };
