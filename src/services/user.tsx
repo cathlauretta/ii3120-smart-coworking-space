@@ -43,7 +43,7 @@ export const deleteUser = async (id: string | undefined) => {
     return { error };
   }
   const { error } = await supabase
-    .from('users')
+    .from('user')
     .delete()
     .eq('id', id as string);
   return { error };

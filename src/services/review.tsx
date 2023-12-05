@@ -20,7 +20,7 @@ export const updateReview = async (
 ) => {
   const supabase = createClient(cookies());
   const query = supabase
-    .from('reviews')
+    .from('review')
     .update({ ...reviewPayload })
     .eq('id', id as string)
     .select();
@@ -31,7 +31,7 @@ export const updateReview = async (
 export const deleteReview = async (id: string | null | undefined) => {
   const supabase = createClient(cookies());
   const { error } = await supabase
-    .from('reviews')
+    .from('review')
     .delete()
     .eq('id', id as string);
   return { error };
@@ -40,7 +40,7 @@ export const deleteReview = async (id: string | null | undefined) => {
 export const getReviewById = async (id: string | null | undefined) => {
   const supabase = createClient(cookies());
   const query = supabase
-    .from('reviews')
+    .from('review')
     .select(
       'id, rating, komentar, created_at, users (id, full_name, phone_number)'
     )
@@ -53,7 +53,7 @@ export const getReviewById = async (id: string | null | undefined) => {
 export const getReviews = async () => {
   const supabase = createClient(cookies());
   const query = supabase
-    .from('reviews')
+    .from('review')
     .select(
       'id, rating, komentar, created_at, users (id, full_name, phone_number)'
     );

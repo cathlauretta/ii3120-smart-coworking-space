@@ -6,7 +6,7 @@ import exp from 'constants';
 export const createWorkspace = async (workspacePayload: Payload<'workspaces'>) => {
     const supabase = createClient(cookies());
     const query = supabase
-        .from('workspaces')
+        .from('workspace')
         .insert([{ ...workspacePayload }])
         .select()
         .single();
@@ -20,7 +20,7 @@ export const updateWorkspace = async (
 ) => {
     const supabase = createClient(cookies());
     const query = supabase
-        .from('workspaces')
+        .from('workspace')
         .update({ ...workspacePayload })
         .eq('id', id as string)
         .select()
@@ -32,7 +32,7 @@ export const updateWorkspace = async (
 export const deleteWorkspace = async (id: string | null | undefined) => {
     const supabase = createClient(cookies());
     const { error } = await supabase
-        .from('workspaces')
+        .from('workspace')
         .delete()
         .eq('id', id as string);
     return { error };
@@ -41,7 +41,7 @@ export const deleteWorkspace = async (id: string | null | undefined) => {
 export const getWorkspaceById = async (id: string | null | undefined) => {
     const supabase = createClient(cookies());
     const query = supabase
-        .from('workspaces')
+        .from('workspace')
         .select(
             'id, name,desc, facilities, price, capacity, created_at'
         )
@@ -54,7 +54,7 @@ export const getWorkspaceById = async (id: string | null | undefined) => {
 export const getWorkspaces = async () => {
     const supabase = createClient(cookies());
     const query = supabase
-        .from('workspaces')
+        .from('workspace')
         .select(
             'id, name,desc, facilities, price, capacity, created_at'
         );
