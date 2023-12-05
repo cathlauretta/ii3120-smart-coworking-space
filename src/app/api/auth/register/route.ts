@@ -4,19 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Payload } from '../../../../lib/databasetypes';
 import { registerAndCreateAccount } from '@/services/auth';
 
-// POST /api/auth/register
-// request body: {
-//   "email": "admin@gmail.com",
-//   "password": "adminadmin",
-//   "username": "admin",
-//   "full_name": "Admin",
-//   "phone_number": "081593201831",
-//   "role": "admin"
-// }
-// status: {
-//   success: 200,
-//   bad request: 400; One or many of the body parameters are not present
-// }
+
 export async function POST(request: NextRequest) {
   const bodyRequest = await request.json();
   const requestUrl = new URL(request.url);
