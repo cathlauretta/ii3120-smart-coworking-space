@@ -43,7 +43,7 @@ export const getWorkspaceById = async (id: string | null | undefined) => {
     const query = supabase
         .from('workspace')
         .select(
-            'id, name,desc, facilities, price, capacity, created_at'
+            '*'
         )
         .eq('id', id as string)
         .single();
@@ -56,7 +56,7 @@ export const getWorkspaces = async () => {
     const query = supabase
         .from('workspace')
         .select(
-            'id, name,desc, facilities, price, capacity, created_at'
+            '*'
         );
     const { data, error } = await query;
     return { data, error };

@@ -60,9 +60,21 @@ export interface Database {
           city: string | null;
         };
         Insert: {
-
+          id?: string | null;
+          name?: string | null;
+          contact?: string | null;
+          location?: string | null;
+          created_at?: string | null;
+          city?: string | null;
         };
+        
         Update: {
+          id?: string | null;
+          name?: string | null;
+          contact?: string | null;
+          location?: string | null;
+          created_at?: string | null;
+          city?: string | null;
 
         };
         Relationships: [];
@@ -80,11 +92,27 @@ export interface Database {
 
         };
         Insert: {
+          id?: string;
+          name?: string | null;
+          facilities?: string | null;
+          capacity?: number | null;
+          created_at?: string | null;
+          workspace_id?: string | null;
+          occupancy?: number | null;
 
         };
         Update: {
+          id?: string;
+          name?: string | null;
+          facilities?: string | null;
+          capacity?: number | null;
+          created_at?: string | null;
+          workspace_id?: string | null;
+          occupancy?: number | null;
 
-        };
+        };  
+
+        
         Relationships: [];
       };
       memberships: {
@@ -98,16 +126,25 @@ export interface Database {
 
         };
         Insert: {
-
+          plan?: string | null;
+          created_at?: string | null;
+          expired_at?: string | null;
+          started_at?: string | null;
+          id?: string;
         };
         Update: {
+          plan?: string | null;
+          created_at?: string | null;
+          expired_at?: string | null;
+          started_at?: string | null;
+          id?: string;
+        
 
         };
         Relationships: [];
       };
       fnb: {
         Row: {
-
           id: string;
           name: string | null;
           desc: string | null;
@@ -116,16 +153,24 @@ export interface Database {
 
         };
         Insert: {
-
+          id?: string;
+          name?: string | null;
+          desc?: string | null;
+          price?: number | null;
+          created_at?: string | null;
         };
         Update: {
-
+          id?: string;
+          name?: string | null;
+          desc?: string | null;
+          price?: number | null;
+          created_at?: string | null;
         };
         Relationships: [];
       };
       events: {
         Row: {
-
+          id: string;
           name: string | null;
           workspace_id: string | null;
           desc: string | null;
@@ -134,13 +179,29 @@ export interface Database {
           end_time: string | null;
           created_at: string | null;
           contact: string | null;
-          id: string;
-
         };
         Insert: {
-
+          id?: string;
+          name?: string | null;
+          workspace_id?: string | null;
+          desc?: string | null;
+          date?: string | null;
+          start_time?: string | null;
+          end_time?: string | null;
+          created_at?: string | null;
+          contact?: string | null;
         };
         Update: {
+          id?: string;
+          name?: string | null;
+          workspace_id?: string | null;
+          desc?: string | null;
+          date?: string | null;
+          start_time?: string | null;
+          end_time?: string | null;
+          created_at?: string | null;
+          contact?: string | null;
+        
 
         };
         Relationships: [];
