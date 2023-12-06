@@ -29,7 +29,7 @@ export interface Database {
           full_name: string | null;
           id: string;
           phone_number: string | null;
-          membership_status: boolean | null;
+          current_membership_id: string | null;
         };
         Insert: {
           registered_at?: string | null;
@@ -37,7 +37,7 @@ export interface Database {
           full_name?: string | null;
           id?: string;
           phone_number?: string | null;
-          membership_status?: boolean | null;
+          current_membership_id?: string | null;
         };
         Update: {
           registered_at?: string | null;
@@ -45,79 +45,122 @@ export interface Database {
           full_name?: string | null;
           id?: string;
           phone_number?: string | null;
-          membership_status?: boolean | null;
+          current_membership_id?: string | null;
+
         };
         Relationships: [];
       };
-      reviews: {
+      workspaces: {
         Row: {
-            created_at: string | null;
-            user_id: string | null;
-            id: string;
-            rating : GLfloat | null;
-            kommentar: string | null;
-          };
-          Insert: {
-            created_at?: string | null;
-            user_id?: string | null;
-            id?: string;
-            rating? : GLfloat | null;
-            kommentar?: string | null;
-          };
-          Update: {
-            created_at?: string | null;
-            user_id?: string | null;
-            id?: string;
-            rating? : GLfloat | null;
-            kommentar?: string | null;
-          };
-          Relationships: [];
-          };
-        workspaces:{
-            Row: {
-                created_at: string | null;
-                id: string;
-                name : string | null;
-                desc: string | null;
-                facilities: string | null;
-                price: number | null;
-                capacity: number | null;
-            };
-            Insert: {
-                created_at?: string | null;
-                id?: string;
-                name? : string | null;
-                desc?: string | null;
-                facilities?: string | null;
-                price?: number | null;
-                capacity?: number | null;
-            };
-            Update: {
-                created_at?: string | null;
-                id?: string;
-                name? : string | null;
-                desc?: string | null;
-                facilities?: string | null;
-                price?: number | null;
-                capacity?: number | null;
-            };
-            Relationships: [];
-            };
-        }
-      
-    };
-    Views: {
-      [_ in never]: never;
-    };
-    Functions: {
-      [_ in never]: never;
-    };
-    Enums: {
-      [_ in never]: never;
-    };
-    CompositeTypes: {
-      [_ in never]: never;
-    };
+          id: string | null;
+          name: string | null;
+          contact: string | null;
+          location: string | null;
+          created_at: string | null;
+          city: string | null;
+        };
+        Insert: {
+
+        };
+        Update: {
+
+        };
+        Relationships: [];
+      };
+      rooms: {
+        Row: {
+
+          id: string;
+          name: string | null;
+          facilities: string | null;
+          capacity: number | null;
+          created_at: string | null;
+          workspace_id: string | null;
+          occupancy: number | null;
+
+        };
+        Insert: {
+
+        };
+        Update: {
+
+        };
+        Relationships: [];
+      };
+      memberships: {
+        Row: {
+
+          plan: string | null;
+          created_at: string | null;
+          expired_at: string | null;
+          started_at: string | null;
+          id: string;
+
+        };
+        Insert: {
+
+        };
+        Update: {
+
+        };
+        Relationships: [];
+      };
+      fnb: {
+        Row: {
+
+          id: string;
+          name: string | null;
+          desc: string | null;
+          price: number | null;
+          created_at: string | null;
+
+        };
+        Insert: {
+
+        };
+        Update: {
+
+        };
+        Relationships: [];
+      };
+      events: {
+        Row: {
+
+          name: string | null;
+          workspace_id: string | null;
+          desc: string | null;
+          date: string | null;
+          start_time: string | null;
+          end_time: string | null;
+          created_at: string | null;
+          contact: string | null;
+          id: string;
+
+        };
+        Insert: {
+
+        };
+        Update: {
+
+        };
+        Relationships: [];
+      };
+
+    }
 
   };
+  Views: {
+    [_ in never]: never;
+  };
+  Functions: {
+    [_ in never]: never;
+  };
+  Enums: {
+    [_ in never]: never;
+  };
+  CompositeTypes: {
+    [_ in never]: never;
+  };
+
+};
 

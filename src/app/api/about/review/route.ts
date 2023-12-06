@@ -1,7 +1,7 @@
 import {
     getReviewById,
     getReviews
-} from '@/services/review'
+} from '@/services/fnb'
 import { NextRequest, NextResponse } from 'next/server';
 import { Payload } from '@/lib/databasetypes';
 

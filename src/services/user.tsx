@@ -7,12 +7,13 @@ export interface UserUpdatePayload {
   first_name?: String | null;
   last_name?: String | null;
   phone_number?: String | null;
+  current_membership?: string | null;
 }
 
 export const getUserById = async (id: string | undefined) => {
   const supabase = createClient(cookies());
   const query = supabase
-    .from('users')
+    .from('user')
     .select()
     .eq('id', id as string)
     .single();
@@ -26,7 +27,7 @@ export const updateUser = async (
 ) => {
   const supabase = createClient(cookies());
   const query = supabase
-    .from('users')
+    .from('user')
     .update({ ...userPayload })
     .eq('id', id as string)
     .select()

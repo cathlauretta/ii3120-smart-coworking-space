@@ -2,25 +2,7 @@ import { getCurrentUser } from '@/services/auth';
 import { getUserById } from '@/services/user';
 import { NextRequest, NextResponse } from 'next/server';
 
-// GET /api/auth/self
-// request body: {}
-// response: {
-//     "status": "success",
-//     "message": "Current logged in account fetched succesfully",
-//     "data": {
-//         "user": {
-//             "id": "6b7442c3-3e05-4b80-8f68-e693e0b27460",
-//             "username": "admin",
-//             "full_name": "Admin",
-//             "phone_number": "081593201831",
-//             "role": "admin"
-//         }
-//     }
-// }
-// status: {
-//   success: 200
-//   unauthorized: 401; No user is logged in
-// }
+
 export async function GET(request: NextRequest) {
   // execute logout
   const authUser = await getCurrentUser();

@@ -3,10 +3,10 @@ import { cookies } from 'next/headers';
 import { DbResult, Payload, Tables } from '../lib/databasetypes';
 
 
-export const createReview = async (reviewPayload: Payload<'reviews'>) => {
+export const createReview = async (reviewPayload: Payload<'fnb'>) => {
   const supabase = createClient(cookies());
   const query = supabase
-    .from('reviews')
+    .from('fnb')
     .insert([{ ...reviewPayload }])
     .select()
     .single();
@@ -16,11 +16,11 @@ export const createReview = async (reviewPayload: Payload<'reviews'>) => {
 
 export const updateReview = async (
   id: string | null | undefined,
-  reviewPayload: Payload<'reviews'>
+  reviewPayload: Payload<'fnb'>
 ) => {
   const supabase = createClient(cookies());
   const query = supabase
-    .from('review')
+    .from('fnb')
     .update({ ...reviewPayload })
     .eq('id', id as string)
     .select();
@@ -31,7 +31,7 @@ export const updateReview = async (
 export const deleteReview = async (id: string | null | undefined) => {
   const supabase = createClient(cookies());
   const { error } = await supabase
-    .from('review')
+    .from('fnb')
     .delete()
     .eq('id', id as string);
   return { error };
@@ -40,10 +40,8 @@ export const deleteReview = async (id: string | null | undefined) => {
 export const getReviewById = async (id: string | null | undefined) => {
   const supabase = createClient(cookies());
   const query = supabase
-    .from('review')
-    .select(
-      'id, rating, komentar, created_at, users (id, full_name, phone_number)'
-    )
+    .from('fnb')
+    .select()
     .eq('id', id as string)
     .single();
   const { data, error } = await query;
@@ -53,7 +51,7 @@ export const getReviewById = async (id: string | null | undefined) => {
 export const getReviews = async () => {
   const supabase = createClient(cookies());
   const query = supabase
-    .from('review')
+    .from('fnb')
     .select(
       'id, rating, komentar, created_at, users (id, full_name, phone_number)'
     );

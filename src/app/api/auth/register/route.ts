@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
   if (
     !accountPayload.email ||
     !accountPayload.full_name ||
-    !accountPayload.phone_number ||
+    !accountPayload.phone_number || 
     !password
   ) {
     return NextResponse.json(
