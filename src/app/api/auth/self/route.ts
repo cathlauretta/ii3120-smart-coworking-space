@@ -20,7 +20,6 @@ export async function GET(request: NextRequest) {
 
   // execute get user with id from authUser
   const { data, error } = await getUserById(authUser.data.user?.id);
-
   // Check for supabase errors
   if (error) {
     return NextResponse.json(
