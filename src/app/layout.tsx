@@ -3,6 +3,7 @@ import { ChakraProvider } from "@chakra-ui/react"
 
 import WithSubnavigation from "@/components/navbar"
 import SmallWithSocial from "@/components/footer"
+import "tailwindcss/tailwind.css"
 
 export default function RootLayout({
   children,
