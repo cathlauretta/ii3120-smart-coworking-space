@@ -1,15 +1,15 @@
 import {
-    getWorkspaceById,
-    getWorkspaces
-} from '@/services/workspace'
+    getMembership,
+    getMemberships
+} from '@/services/membership'
 
 import { NextRequest, NextResponse } from 'next/server';
-import { Payload } from '@/lib/databasetypes';
+import { Payload, Tables } from '@/lib/databasetypes';
 
 export async function GET(request: NextRequest) {
-    const workspacePayload: Payload<'workspaces'> = await request.json();
-    if (!workspacePayload.id) {
-        const { data, error } = await getWorkspaces();
+    const membershipPayload: Payload<'memberships'> = {};
+    if (!membershipPayload.id) {
+        const { data, error } = await getMemberships();
         if (error) {
             return NextResponse.json(
                 {
@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
             { status: 200 }
         );
     } else {
-        const { data, error } = await getWorkspaceById(workspacePayload.id);
+        const { data, error } = await getMembership(membershipPayload.id);
         if (error) {
             return NextResponse.json(
                 {
