@@ -1,11 +1,21 @@
 import React from 'react'
-import { Flex, Button, Image, InputGroup, Input, InputLeftElement, Icon, Text } from '@chakra-ui/react'
+import {
+    Flex,
+    Button,
+    Image,
+    InputGroup,
+    Input,
+    InputLeftElement,
+    Text,
+    Checkbox,
+    Link,
+} from '@chakra-ui/react'
 import { Brand } from '@/components/brand'
 import { Password } from '@/components/Password'
-import { FaGoogle, FaFacebook } from 'react-icons/fa'
+import { FaEdit, FaGoogle, FaFacebook, FaEnvelope } from 'react-icons/fa'
 
 export default function LoginPage() {
-    const DEFAULT_TEXT_COLOR = '#1A202C'
+    const DEFAULT_TEXT_COLOR = 'gray.800'
 
     return (
         <Flex
@@ -29,6 +39,7 @@ export default function LoginPage() {
                     alignItems={'center'}
                     gap='40px'
                 >
+                    {/* Login Info */}
                     <Flex
                         flexDir={'column'}
                         justifyContent={'center'}
@@ -47,30 +58,43 @@ export default function LoginPage() {
                         alignItems={'center'}
                         gap='10px'
                         textColor={DEFAULT_TEXT_COLOR}
+                        w = '100%'
                     >
                         <InputGroup size={'md'}>
-                            <InputLeftElement children={<Icon name="email" color="gray.400"/>} />
-                            <Input placeholder='Email' alignItems={'flex-start'}/>
+                            <InputLeftElement color="gray.400"><FaEnvelope/></InputLeftElement>
+                            <Input placeholder='Email' alignItems={'flex-start'} pl='40px'/>
                         </InputGroup>
                         <Password/>
+                        <Flex justifyContent={'space-between'} alignSelf={'stretch'}>
+                            <Checkbox size='sm' textColor={DEFAULT_TEXT_COLOR}>Remember me</Checkbox>
+                            <Link href="/forgot-password" fontSize='14px' fontWeight='700' textColor='purple.800'>Forgot Password?</Link>
+                        </Flex>
                     </Flex>
-                    <Flex gap='20px'>
-                        <Button leftIcon={<FaGoogle />} colorScheme='purple' variant='outline' size="lg" width="100%">
-                            Google
-                        </Button>
-                        <Button leftIcon={<FaFacebook />} colorScheme='purple' variant='outline' size="lg" width="100%">
-                            Facebook
+
+                    {/* Button */}
+                    <Flex flexDir='column' gap='20px' w='100%'>
+                        <Flex gap='20px'>
+                            <Button leftIcon={<FaGoogle />} colorScheme='purple' variant='outline' size="lg" width="100%">
+                                Google
+                            </Button>
+                            <Button leftIcon={<FaFacebook />} colorScheme='purple' variant='outline' size="lg" width="100%">
+                                Facebook
+                            </Button>
+                        </Flex>
+                        <Button
+                            bg='purple.500'
+                            color='white'
+                            _hover={{bg: 'purple.400'}}
+                        >
+                            Log In
                         </Button>
                     </Flex>
-                    <Button>
-                        Log In
-                    </Button>
                 </Flex>
 
                 {/* Link to Register */}
-                <Flex flexDir={'row'} textColor={DEFAULT_TEXT_COLOR}>
+                <Flex flexDir={'row'} textColor='purple.800' gap='10px'>
                     <Text>Don't have an account?</Text>
-                    <a href="/signup">Create an Account</a>
+                    <Link href="/signup" fontWeight='700'>Create an Account</Link>
                 </Flex>
             
             </Flex>
