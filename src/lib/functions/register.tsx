@@ -1,11 +1,9 @@
-interface Params {
-    fName: string;
-    email: string;
-    password: string;
-}
+import { registerAndCreateAccount } from "@/services/auth";
 
-export const register = ({ fName, email, password }: Params) => {
+export async function register(email: string, fName: string, pass: string) {
     return (
-        <div>Hello</div>
-    );
-};
+    registerAndCreateAccount(
+        { email: email, full_name: fName, phone_number: "00800813500" },
+        pass
+    ));
+}

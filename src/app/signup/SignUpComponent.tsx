@@ -10,6 +10,8 @@ import {
 import { Password } from "@/components/Password";
 import { FaEnvelope, FaEdit, FaGoogle, FaFacebook } from "react-icons/fa";
 import { BasicInput } from "@/components/Input";
+import { registerAndCreateAccount } from "@/services/auth";
+import { register } from "@/lib/functions/register";
 
 const desc =
     "Bergabung menjadi bagian dari Centrice Member!\nPilih metode Sign Up:";
@@ -17,26 +19,26 @@ const desc =
 export function SignupContent() {
     const DEFAULT_TEXT_COLOR = "#1A202C";
 
-    const [fName, setFName] = useState<string>();
+    const [fName, setFName] = useState<string>("default");
     const handleFName = (item: string) => {
         setFName(item);
         // console.log("Changed: " + fName);
     };
 
-    const [email, setEmail] = useState<string>();
+    const [email, setEmail] = useState<string>("default");
     const handleEmail = (item: string) => {
         setEmail(item);
         // console.log("Changed: " + email);
     };
 
-    const [pass, setPass] = useState<string>();
+    const [pass, setPass] = useState<string>("default");
     const handlePass = (item: string) => {
         setPass(item);
         // console.log("Changed: " + pass);
     };
 
     return (
-        // { /* Login */ }
+        // { /* Sign Up */ }
         <Flex
             flexDir={"column"}
             justifyContent={"center"}
@@ -117,7 +119,7 @@ export function SignupContent() {
                 bg="purple.500"
                 textColor="white"
                 onClick={() => {
-                    // register(fName, email, pass)
+                    register(email, fName, pass)
                 }}>
                 Sign Up
             </Button>

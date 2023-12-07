@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
   const { data, error } = await registerAndCreateAccount(
     accountPayload,
     password,
-    requestUrl
+    // requestUrl
   );
 
   // Check for supabase errors
