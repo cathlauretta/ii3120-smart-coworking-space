@@ -39,8 +39,8 @@ export const createEvent = async (eventsPayload: Payload<'events'>) => {
   export const getEvent = async (id: string | null | undefined) => {
     const supabase = createClient(cookies());
     const query = supabase
-      .from('event')
-      .select('name, workspace_id, desc, date, start_time, end_time, created_at, contact, id')
+      .from('event_joined')
+      .select('*')
       .eq('id', id as string)
       .single();
     const { data, error } = await query;
@@ -50,8 +50,8 @@ export const createEvent = async (eventsPayload: Payload<'events'>) => {
   export const getEvents = async () => {
     const supabase = createClient(cookies());
     const query = supabase
-      .from('event')
-      .select('name, workspace_id, desc, date, start_time, end_time, created_at, contact, id');
+      .from('event_joined')
+      .select('*');
     const { data, error } = await query;
     return { data, error };
   };
