@@ -116,6 +116,7 @@ export function SignupContent() {
                 w="100%"
                 bg="purple.500"
                 textColor="white"
+                _hover={{ bg: "purple.400" }}
                 onClick={() => {
                     // register(fName, email, pass)
                 }}>
