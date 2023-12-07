@@ -10,6 +10,7 @@ export async function GET(request: NextRequest) {
     console.log("Hehe");
     const eventsPayload: Payload<'events'> = {};
     console.log(eventsPayload);
+    console.log('test')
     if (!eventsPayload.id) {
 
         const { data, error } = await getEvents();

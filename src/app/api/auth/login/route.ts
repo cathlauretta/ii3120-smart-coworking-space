@@ -3,15 +3,7 @@ import { AccountCredentials, signIn } from '@/services/auth';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
-// POST /api/auth/login
-// request body: {
-//     "email": "admin@gmail.com",
-//     "password": "adminadmin"
-// }
-// status: {
-//   success: 200,
-//   bad request: 400; One or many of the body parameters are not present OR login creds invalid
-// }
+
 export async function POST(request: NextRequest) {
   const accountCredentials: AccountCredentials = await request.json();
 
@@ -30,7 +22,6 @@ export async function POST(request: NextRequest) {
 
   // execute signni
   const { data, error } = await signIn(accountCredentials);
-
   // Check for supabase errors
   if (error) {
     return NextResponse.json(

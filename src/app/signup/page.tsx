@@ -1,14 +1,8 @@
 import React from "react";
 import {
     Flex,
-    Button,
     Image,
-    InputGroup,
-    Input,
-    InputLeftElement,
     Text,
-    Divider,
-    AbsoluteCenter,
     Link,
 } from "@chakra-ui/react";
 import { Brand } from "@/components/brand";
