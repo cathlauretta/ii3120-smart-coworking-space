@@ -14,7 +14,7 @@ export const Password = () => {
     const [icon, setIcon] = useState(<FaEye />);
     const handleClick = () => {
         setShow(!show);
-        show ? setIcon(<FaEyeSlash />) : setIcon(<FaEye />);
+        show ? setIcon(<FaEye />) : setIcon(<FaEyeSlash />);
     };
 
     return (

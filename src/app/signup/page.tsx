@@ -9,6 +9,7 @@ import {
     Text,
     Divider,
     AbsoluteCenter,
+    Link,
 } from "@chakra-ui/react";
 import { Brand } from "@/components/brand";
 import { Password } from "@/components/Password";
@@ -37,7 +38,6 @@ export default function LoginPage() {
                     justifyContent={"center"}
                     alignItems={"center"}
                     gap="40px"
-                    // bg="yellow"
                 >
                     <Flex
                         flexDir={"column"}
@@ -129,13 +129,17 @@ export default function LoginPage() {
                             <Password />
                         </Flex>
                     </Flex>
-                    <Button>Log In</Button>
+
+                    {/* Sign Up Button */}
+                    <Button w="100%" bg="purple.500" textColor="white">
+                        Sign Up
+                    </Button>
                 </Flex>
 
-                {/* Link to Register */}
-                <Flex flexDir={"row"} textColor={DEFAULT_TEXT_COLOR}>
-                    <Text>Don't have an account?</Text>
-                    <a href="/register">Create an Account</a>
+                {/* Link to Login */}
+                <Flex flexDir={"row"} textColor="purple.800" gap="10px">
+                    <Text>Already have an account?</Text>
+                    <Link href="/login" fontWeight="600">Log in</Link>
                 </Flex>
             </Flex>
 
