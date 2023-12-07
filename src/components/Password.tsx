@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
     InputGroup,
     Input,
@@ -9,7 +9,11 @@ import {
 } from "@chakra-ui/react";
 import { FaEye, FaEyeSlash, FaAsterisk } from "react-icons/fa";
 
-export const Password = () => {
+interface Params {
+    getPass: (item: string) => void;
+}
+
+export const Password = ({ getPass }: Params) => {
     const [show, setShow] = useState(false);
     const [icon, setIcon] = useState(<FaEye />);
     const handleClick = () => {
@@ -26,6 +30,9 @@ export const Password = () => {
                 pr="4.5rem"
                 type={show ? "text" : "password"}
                 placeholder="Password"
+                onChange={(event) => {
+                    getPass(event.target.value);
+                }}
             />
             <InputRightElement>
                 <IconButton
