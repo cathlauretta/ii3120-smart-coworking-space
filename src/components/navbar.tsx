@@ -89,7 +89,7 @@ export default function WithSubnavigation() {
                         fontSize={"sm"}
                         fontWeight={600}
                         color={"white"}
-                        href="/auth/login"
+                        href="/login"
                         bg={"purple.500"}
                         _hover={{
                             bg: "purple.400",
