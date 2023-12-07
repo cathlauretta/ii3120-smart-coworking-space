@@ -70,7 +70,7 @@ export default function LoginPage() {
                 {/* Link to Register */}
                 <Flex flexDir={'row'} textColor={DEFAULT_TEXT_COLOR}>
                     <Text>Don't have an account?</Text>
-                    <a href="/register">Create an Account</a>
+                    <a href="/signup">Create an Account</a>
                 </Flex>
             
             </Flex>
