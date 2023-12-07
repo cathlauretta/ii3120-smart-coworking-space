@@ -131,7 +131,7 @@ export default function LoginPage() {
                     </Flex>
 
                     {/* Sign Up Button */}
-                    <Button w="100%" bg="purple.500" textColor="white">
+                    <Button w="100%" bg="purple.500" textColor="white" _hover={{bg: 'purple.400'}}>
                         Sign Up
                     </Button>
                 </Flex>
