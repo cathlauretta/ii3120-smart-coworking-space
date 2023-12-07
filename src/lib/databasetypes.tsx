@@ -172,13 +172,14 @@ export interface Database {
         Row: {
           id: string;
           name: string | null;
-          workspace_id: string | null;
-          desc: string | null;
           date: string | null;
           start_time: string | null;
           end_time: string | null;
-          created_at: string | null;
           contact: string | null;
+          desc: string | null;
+          workspace_id: string | null;
+          workspace_name: string | null;
+          location: string | null;
         };
         Insert: {
           id?: string;
