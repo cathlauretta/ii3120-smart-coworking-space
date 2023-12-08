@@ -1,12 +1,11 @@
 import { getCurrentUser } from '@/services/auth';
-import { getUserById } from '@/services/user';
+import { getUserById, getUserByEmail } from '@/services/user';
 import { NextRequest, NextResponse } from 'next/server';
 
 
 export async function GET(request: NextRequest) {
   // execute logout
   const authUser = await getCurrentUser();
-
   // Check for auth errors
   if (authUser.error) {
     return NextResponse.json(
@@ -19,7 +18,9 @@ export async function GET(request: NextRequest) {
   }
 
   // execute get user with id from authUser
+  console.log("Getting user by email")
   const { data, error } = await getUserById(authUser.data.user?.id);
+  console.log(data);
   // Check for supabase errors
   if (error) {
     return NextResponse.json(

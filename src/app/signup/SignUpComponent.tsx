@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Flex, Button, Text, Divider, AbsoluteCenter } from "@chakra-ui/react";
 import { Password } from "@/components/Password";
 import { FaEnvelope, FaEdit, FaGoogle, FaFacebook } from "react-icons/fa";
-import { BasicInput } from "@/components/input";
+import { BasicInput } from "@/components/InputComponent";
 import { useRouter } from "next/navigation";
 
 const desc =

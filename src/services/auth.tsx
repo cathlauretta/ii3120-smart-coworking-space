@@ -20,57 +20,25 @@ export const registerAndCreateAccount = async (
     email: accountPayload.email as string,
     password,
     options: {
-      // emailRedirectTo: `${requestUrl}/api/auth/callback`,
+      emailRedirectTo: `${requestUrl}/api/auth/callback`,
       data: {
         username: accountPayload.email,
         full_name: accountPayload.full_name,
-        phone_number: "0080081000",
+        phone_number: null,
       }
     }
   });
   const { data, error } = await query;
-
-
-  // console.log("ini data", data, "ini error", error);
-
   return { data, error };
 };
 
 export const signIn = async (accountCredentials: AccountCredentials) => {
   const supabase = createClient(cookies());
-
-  // const query = supabase.auth.signInWithPassword({
-  //   ...accountCredentials
-  // });
-  // const { data, error } = await query;
-  // return { data, error };
-
-
-  const query = supabase.from('user').select('*').eq('email', accountCredentials.email);
+  const query = supabase.auth.signInWithPassword({
+    ...accountCredentials
+  });
   const { data, error } = await query;
-
-  if (data){
-    const dataEmail = data[0].email;
-    const dataPassword = data[0].password;
-    if (dataEmail === accountCredentials.email){
-      if (dataPassword === accountCredentials.password){
-        const result = "Login Success";	
-        const error : PostgrestError | null = null ;
-        return {result, error};
-      } else {
-        const result = null;
-        const error = {message: "Invalid Password", status: 402};
-        return {result, error};
-      }
-    } else {
-      const result = null;
-      const error = {message: "Invalid Username", status: 402};
-      return {result, error};
-    }
-  } else {
-    const error = {message: "Invalid Login Credentials", status: 400};
-    return { data, error };
-  }
+  return { data, error };
 };
 
 export const signOut = async () => {
@@ -81,8 +49,19 @@ export const signOut = async () => {
 };
 
 export const getCurrentUser = async () => {
-  const supabase = createClient(cookies());
-  const query = supabase.auth.getUser();
-  const { data, error } = await query;
-  return { data, error };
+  try {
+    console.log('cookies', cookies());
+    const supabase = createClient(cookies());
+    const query = supabase.auth.getUser();
+    const { data, error } = await query;
+    console.log('data', data);
+    if (error) {
+      console.log(error);
+      throw error;
+    }
+
+    return { data, error: null };
+  } catch (error) {
+    return { data: null, error };
+  }
 };

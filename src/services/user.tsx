@@ -36,6 +36,28 @@ export const getUserById = async (id: string | undefined) => {
   return { data, error };
 };
 
+export const getUserByEmail = async (email: string | undefined) => {
+  try {
+    console.log('id seng login', email);
+    const supabase = createClient(cookies());
+    const query = supabase
+      .from('user')
+      .select('id, email, full_name, phone_number, current_membership_id')
+      .eq('email', email as string)
+      .single();
+    console.log('query', query);
+    const { data, error } = await query;
+    if (error) {
+      console.log(error);
+      throw error;
+    }
+
+    return { data, error: null };
+  } catch (error) {
+    return { data: null, error };
+  }
+};
+
 export const updateUser = async (
   userPayload: Payload<'users'>,
   id: string | undefined

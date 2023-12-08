@@ -1,6 +1,6 @@
 'use client';
 
-import { InputSearch } from '@/components/input';
+import { InputSearch } from '@/components/InputComponent';
 
 export default function SearchBar({ parentCallback }: any) {
   return (

@@ -6,13 +6,11 @@ import { registerAndCreateAccount } from '@/services/auth';
 import { addUserTable } from '@/services/user';
 
 export async function POST(request: NextRequest) {
-  console.log("masuk 1")
   const bodyRequest = await request.json();
   const requestUrl = new URL(request.url);
-  console.log("masuk 2")
+  console.log(requestUrl)
   const accountPayload: Payload<'users'> = bodyRequest;
   const { password } = bodyRequest;
-  console.log("masuk 3")
   // Check for body parameters
   if (
     !accountPayload.email ||
