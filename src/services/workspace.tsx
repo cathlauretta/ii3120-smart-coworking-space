@@ -59,5 +59,6 @@ export const getWorkspaces = async () => {
             '*'
         );
     const { data, error } = await query;
+    console.log('data', data);
     return { data, error };
 }

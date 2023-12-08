@@ -8,7 +8,6 @@ import { addUserTable } from '@/services/user';
 export async function POST(request: NextRequest) {
   const bodyRequest = await request.json();
   const requestUrl = new URL(request.url);
-  console.log(requestUrl)
   const accountPayload: Payload<'users'> = bodyRequest;
   const { password } = bodyRequest;
   // Check for body parameters
@@ -34,7 +33,6 @@ export async function POST(request: NextRequest) {
     password,
     requestUrl
   );
-
   console.log(data);
 
   // Check for supabase errors
@@ -49,16 +47,16 @@ export async function POST(request: NextRequest) {
   }
   console.log("masuk 4")
   console.log(accountPayload)
-  const { data: userData, error: error2 } = await addUserTable(accountPayload, password);
-  console.log(userData);
-  if (error2) {
-    return NextResponse.json(
-      {
-        status: 'error',
-        message: error2.message
-      }
-    );
-  }
+  // const { data: userData, error: error2 } = await addUserTable(accountPayload, password);
+  // console.log(userData);
+  // if (error2) {
+  //   return NextResponse.json(
+  //     {
+  //       status: 'error',
+  //       message: error2.message
+  //     }
+  //   );
+  // }
   // successful return
   return NextResponse.json(
     { status: 'success', message: 'Account created succesfully', data: data },
