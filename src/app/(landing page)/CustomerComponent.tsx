@@ -121,6 +121,7 @@ export default function CustomerHome() {
       workspace_id: string | null;
       workspace_name: string | null;
       location: string | null;
+      url_img: string | null;
     }[]
   >([]);
 
@@ -131,6 +132,7 @@ export default function CustomerHome() {
       desc: string | null;
       price: number | null;
       created_at: string | null;
+      url_img: string | null;
       quantity: number;
     }[]
   >([]);
@@ -169,6 +171,7 @@ export default function CustomerHome() {
         desc: string | null;
         price: number | null;
         created_at: string | null;
+        url_img: string | null;
         quantity: number;
       }) => ({
         ...food,
@@ -253,12 +256,16 @@ export default function CustomerHome() {
                   maxH={{ base: '100%', sm: '90px' }}
                   className='h-20  my-2'
                 >
-                  <Image
-                    objectFit='cover'
-                    maxW={{ base: '100%', sm: '120px' }}
-                    src='https://via.placeholder.com/142x75'
-                    alt='Caffe Latte'
-                  />
+                  <div className='h-full w-[24] overflow-hidden'>
+                    <Image
+                      objectFit='cover'
+                      width={200}
+                      height={100}
+                      src={food.url_img ? food.url_img : 'https://via.placeholder.com/120x120'}
+                      alt={food.name ? food.name : 'food image'}
+                    />
+                  </div>
+                  
 
                   <Stack className='w-full'>
                     <CardBody className='w-full'>
@@ -394,11 +401,16 @@ export default function CustomerHome() {
           {data ? data.map((event) => (
             <Card maxW='sm'>
               <CardBody>
+                <div className=''>
                 <Image
-                  src='https://via.placeholder.com/443x200'
+                objectFit='cover'
+                width={443}
+                height={200}
+                  src={event.url_img ? event.url_img : 'https://via.placeholder.com/443x200'}
                   alt='event image'
                   borderRadius='lg'
                 />
+                </div>
                 <Stack mt='6' spacing='3'>
                   <Heading size='md'>{event.name}</Heading>
                   <Text className='text-slate-600 text-lg font-semibold leading-7'>{event.workspace_name}
