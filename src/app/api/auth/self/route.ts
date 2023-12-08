@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
   // execute logout
-  const authUser = await getCurrentUser();
+  const authUser: any = await getCurrentUser();
   // Check for auth errors
   if (authUser.error) {
     return NextResponse.json(

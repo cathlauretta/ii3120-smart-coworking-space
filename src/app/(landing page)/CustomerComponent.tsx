@@ -5,7 +5,7 @@ import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
 import { Icon } from "@chakra-ui/react";
 import { Heading, Text, Stack, Image } from '@chakra-ui/react';
 import { createIcon, PhoneIcon, TimeIcon } from '@chakra-ui/icons';
-import MemberCard from '@/components/membercard'
+import { MemberCard } from '@/components/membercard'
 import SearchBar from '@/components/searchbar';
 import { Button, ButtonGroup } from '@chakra-ui/react'
 

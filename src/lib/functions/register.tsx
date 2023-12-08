@@ -6,6 +6,6 @@ export async function register(email: string, fName: string, pass: string) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(newReportData),
-      });
+        body: JSON.stringify({ email, fName, pass }), // Replace with the appropriate data
+    });
 }
