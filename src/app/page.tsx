@@ -33,7 +33,7 @@ export default function Home() {
   useEffect(() => {
     async function checkLogin() {
       const data = await getSelf();
-      setStatus(data.status);
+      setStatus(data?.status);
     }
     checkLogin();
   }, []);

@@ -75,7 +75,7 @@ export const MemberCard = ({number, name}: Props) => {
                             fontWeight="400"
                             fontFamily="Monomaniac One"
                             mb="1px">
-                            {name.toUpperCase()}
+                            {name?.toUpperCase()}
                         </Text>
                     </Flex>
                 </Flex>

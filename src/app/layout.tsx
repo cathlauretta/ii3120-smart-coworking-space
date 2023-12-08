@@ -17,7 +17,7 @@ export default function RootLayout({
       <body>
         <ChakraProvider theme={theme}>
           <div>
-            <WithSubnavigation />
+            {/* <WithSubnavigation /> */}
             {children}
             <SmallWithSocial />
           </div>

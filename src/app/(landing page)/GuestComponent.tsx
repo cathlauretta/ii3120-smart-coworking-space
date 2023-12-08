@@ -25,6 +25,7 @@ import {
   FaClock,
   FaMapPin
 } from 'react-icons/fa'
+import WithSubnavigation from "@/components/navbar"
 
 import { useEffect, useRef, useState } from 'react'
 
@@ -168,6 +169,7 @@ export default function GuestHome() {
 
   return (
     <div>
+      <WithSubnavigation type='guest'/> 
       {/* pink section */}
       <div className='flex px-[150px] py-[100px] gap-[50px] relative'>
         {/* background image */}

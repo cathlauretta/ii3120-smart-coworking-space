@@ -60,9 +60,14 @@ type User = {
     current_membership_id: string;
 }
 
-export default function WithSubnavigation() {
+interface NavbarProps {
+    type: 'customer' | 'guest';
+}
+
+
+export default function WithSubnavigation({ type }: NavbarProps) {
     const { isOpen, onToggle } = useDisclosure()
-    const [status, setStatus] = useState('error');
+    // const [status, setStatus] = useState('error');
     const [user, setUser] = useState<User>({
         id: '',
         email: '',
@@ -78,7 +83,7 @@ export default function WithSubnavigation() {
     React.useEffect(() => {
         async function checkLogin() {
             const data = await getSelf();
-            setStatus(data?.status);
+            // setStatus(data?.status);
             setUser(data?.user);
         }
         checkLogin();
@@ -118,7 +123,7 @@ export default function WithSubnavigation() {
                 <Flex w='100%'></Flex>
                 <Flex>
                     <Stack direction={"row"} spacing={4}>
-                        {(status === 'error') && (
+                        {(type === 'guest') && (
                             <Flex w='100%' className='gap-8 w=full' display={{ base: "none", md: "flex" }} align={"center"}>
                                 {NAV_ITEMS.map((navItem) => (
                                     <Box key={navItem.label}>
@@ -158,7 +163,7 @@ export default function WithSubnavigation() {
                             </Flex>
                         )}
 
-                        {(status === 'success') && (
+                        {(type === 'customer') && (
                             <Flex w='100%' className='gap-8 w=full' display={{ base: "none", md: "flex" }} align={"center"}>
                                 {NAV_ITEMS_CUST.map((navItem) => (
                                     <Box key={navItem.label}>

@@ -8,6 +8,7 @@ import { createIcon, PhoneIcon, TimeIcon } from '@chakra-ui/icons';
 import { MemberCard } from '@/components/membercard'
 import SearchBar from '@/components/searchbar';
 import { Button, ButtonGroup } from '@chakra-ui/react'
+import WithSubnavigation from "@/components/navbar"
 
 export const locationCustom = createIcon({
   displayName: "locationCustom",
@@ -72,6 +73,30 @@ function pesanHandler(){
 
 }
 
+function getSelf() {
+  return fetch('http://localhost:3000/api/auth/self', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then((res) => res.json())
+    .then((data) => {
+      return data['data']
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
+function cardID(str: string | null) {
+  if (!str) return 'XXX';
+  const cardNumber = str.split('-').pop() || '';
+  const cardNumberWithDash = cardNumber.match(/.{1,4}/g)?.join('-') || '';
+  const cardNumberUppercase = cardNumberWithDash.toUpperCase();
+  return cardNumberUppercase;
+}
+
+
 export default function CustomerHome() {
   const [pesanCLicked, setPesanClicked] = useState(false)
   const [searchVal, setSearchVal] = useState('');
@@ -109,13 +134,31 @@ export default function CustomerHome() {
     }[]
   >([]);
 
+  const [user, setUser] = useState<{
+    id: string;
+    email: string;
+    full_name: string;
+    phone_number: string;
+    current_membership_id: string;
+  }>({
+    id: 'XXXXXXX',
+    email: '',
+    full_name: 'XXXXXXXX',
+    phone_number: '',
+    current_membership_id: ''
+  });
+
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getEvents();
-      setData(res);
-      const res2 = await getFoods();
+      const res1 = await getSelf();
+      setUser(res1.user);
+      console.log(res1.user)
 
-      const updatedFoods = res2.map((food: {
+      const res2 = await getEvents();
+      setData(res2);
+      const res3 = await getFoods();
+      
+      const updatedFoods = res3.map((food: {
         id: string;
         name: string | null;
         desc: string | null;
@@ -128,7 +171,6 @@ export default function CustomerHome() {
       }));
 
       setFoods(updatedFoods);
-
     };
 
     fetchData();
@@ -136,6 +178,7 @@ export default function CustomerHome() {
 
   return (
     <div>
+      <WithSubnavigation type='customer'/> 
       <div className='px-[150px] py-[100px] gap-[50px] bg-[#FBB6CE] flex gap-2'>
       <div className='absolute inset-0 -z-2'>
           <Image
@@ -145,7 +188,7 @@ export default function CustomerHome() {
           />
         </div>
         <div className='w-6/12 z-10'>
-          <div className="rounded-t-md w-full h-20 px-7 py-4 bg-white shadow">
+          <div className="rounded-t-md w-full h-fit px-7 py-8 bg-white shadow">
             <Heading className="text-gray-900 text-4xl font-extrabold">Workspace</Heading>
           </div>
           <div className="w-full h-32 px-7 py-6 bg-slate-100 shadow justify-start items-start gap-2.5 inline-flex">
@@ -164,20 +207,20 @@ export default function CustomerHome() {
             </div>
           </div>
 
-          <div className="w-full h-80 relative bg-violet-400 rounded-bl-lg rounded-br-lg shadow border-4 border-white">
-            {/* <MemberCard name='COK' /> */}
+          <div className="flex w-full h-fit py-10 relative bg-violet-400 rounded-bl-lg rounded-br-lg border-4 border-white items-center justify-center">
+            <MemberCard  number={`${cardID(user?.id)}`} name={user?.full_name}/>
           </div>
         </div>
 
 
 
         <div className='w-5/12 z-10'>
-          <div className="rounded-t-md w-full h-20 px-7 py-4 bg-white shadow">
+          <div className="rounded-t-md w-full h-fit px-7 py-8 bg-white shadow">
             <Heading className="text-gray-900 text-4xl font-extrabold">Pesan Makanan</Heading>
           </div>
           <div className="w-full h-11/12 px-7 pt-5 bg-slate-100 shadow flex-col justify-start items-center gap-4 inline-flex">
             <SearchBar parentCallback={(val: string) => setSearchVal(val)} />
-            <div className='h-[420px] overflow-y-scroll no-scrollbar'>
+            <div className='h-[420px] w-full overflow-y-scroll no-scrollbar'>
               {foods ? foods.filter((val) => {
                 if (searchVal === '') {
                   return val;
@@ -187,9 +230,9 @@ export default function CustomerHome() {
                   direction={{ base: 'column', sm: 'row' }}
                   overflow='hidden'
                   variant='outline'
-                  maxW='sm'
+                  maxW='95%'
                   maxH={{ base: '100%', sm: '90px' }}
-                  className='h-20 w-12/12 my-2'
+                  className='h-20  my-2'
                 >
                   <Image
                     objectFit='cover'
@@ -198,8 +241,8 @@ export default function CustomerHome() {
                     alt='Caffe Latte'
                   />
 
-                  <Stack>
-                    <CardBody className='w-48'>
+                  <Stack className='w-full'>
+                    <CardBody className='w-full'>
                       <Heading size='sm'>{food.name}</Heading>
                       <Text py='2'>
                         Rp {(food.price)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
