@@ -1,30 +1,47 @@
-
+"use client";
+import React, { useState } from "react";
 import {
     Flex,
     Button,
-    InputGroup,
-    Input,
-    InputLeftElement,
     Text,
     Divider,
     AbsoluteCenter,
 } from "@chakra-ui/react";
 import { Password } from "@/components/Password";
 import { FaEnvelope, FaEdit, FaGoogle, FaFacebook } from "react-icons/fa";
+import { BasicInput } from "@/components/Input";
 
 const desc =
     "Bergabung menjadi bagian dari Centrice Member!\nPilih metode Sign Up:";
-    
-export default function SignUpForm() {
+
+export function SignupContent() {
     const DEFAULT_TEXT_COLOR = "#1A202C";
- 
+
+    const [fName, setFName] = useState<string>();
+    const handleFName = (item: string) => {
+        setFName(item);
+        // console.log("Changed: " + fName);
+    };
+
+    const [email, setEmail] = useState<string>();
+    const handleEmail = (item: string) => {
+        setEmail(item);
+        // console.log("Changed: " + email);
+    };
+
+    const [pass, setPass] = useState<string>();
+    const handlePass = (item: string) => {
+        setPass(item);
+        // console.log("Changed: " + pass);
+    };
+
     return (
+        // { /* Login */ }
         <Flex
             flexDir={"column"}
             justifyContent={"center"}
             alignItems={"center"}
-            gap="40px"
-        >
+            gap="40px">
             <Flex
                 flexDir={"column"}
                 justifyContent={"center"}
@@ -86,40 +103,25 @@ export default function SignUpForm() {
                     </AbsoluteCenter>
                 </Flex>
 
-                {/* Email */}
+                {/* Registration Part */}
                 <Flex flexDir="column" gap="10px" w="100%">
-                    <InputGroup>
-                        <InputLeftElement
-                            color="gray.400"
-                            pointerEvents="none">
-                            <FaEdit />
-                        </InputLeftElement>
-                        <Input
-                            type="text"
-                            placeholder="Full Name"
-                            pl="40px"
-                        />
-                    </InputGroup>
-                    <InputGroup>
-                        <InputLeftElement
-                            color="gray.400"
-                            pointerEvents="none">
-                            <FaEnvelope />
-                        </InputLeftElement>
-                        <Input
-                            type="email"
-                            placeholder="Email"
-                            pl="40px"
-                        />
-                    </InputGroup>
-                    <Password />
+                    <BasicInput placeholder="Full Name" type="text" icons={<FaEdit />}  getValue={handleFName}/>
+                    <BasicInput placeholder="Email" type="email" icons={<FaEnvelope />}  getValue={handleEmail}/>
+                    <Password getPass={handlePass} />
                 </Flex>
             </Flex>
 
             {/* Sign Up Button */}
-            <Button w="100%" bg="purple.500" textColor="white">
+            <Button
+                w="100%"
+                bg="purple.500"
+                textColor="white"
+                _hover={{ bg: "purple.400" }}
+                onClick={() => {
+                    // register(fName, email, pass)
+                }}>
                 Sign Up
             </Button>
         </Flex>
-    )
+    );
 }

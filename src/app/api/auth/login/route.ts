@@ -7,7 +7,6 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(request: NextRequest) {
   const accountCredentials: AccountCredentials = await request.json();
 
-  console.log(accountCredentials.password);
 
   // Check for body parameters
   if (!accountCredentials.email || !accountCredentials.password) {
@@ -20,8 +19,10 @@ export async function POST(request: NextRequest) {
     );
   }
 
+
   // execute signni
   const { data, error } = await signIn(accountCredentials);
+
   // Check for supabase errors
   if (error) {
     return NextResponse.json(

@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { cookies } from 'next/headers';
 import { Payload } from '../lib/databasetypes';
+import { PostgrestError } from '@supabase/supabase-js';
 
 
 export interface AccountCredentials {
@@ -34,11 +35,39 @@ export const registerAndCreateAccount = async (
 
 export const signIn = async (accountCredentials: AccountCredentials) => {
   const supabase = createClient(cookies());
-  const query = supabase.auth.signInWithPassword({
-    ...accountCredentials
-  });
+
+  // const query = supabase.auth.signInWithPassword({
+  //   ...accountCredentials
+  // });
+  // const { data, error } = await query;
+  // return { data, error };
+
+
+  const query = supabase.from('user').select('*').eq('email', accountCredentials.email);
   const { data, error } = await query;
-  return { data, error };
+
+  if (data){
+    const dataEmail = data[0].email;
+    const dataPassword = data[0].password;
+    if (dataEmail === accountCredentials.email){
+      if (dataPassword === accountCredentials.password){
+        const result = "Login Success";	
+        const error : PostgrestError | null = null ;
+        return {result, error};
+      } else {
+        const result = null;
+        const error = {message: "Invalid Password", status: 402};
+        return {result, error};
+      }
+    } else {
+      const result = null;
+      const error = {message: "Invalid Username", status: 402};
+      return {result, error};
+    }
+  } else {
+    const error = {message: "Invalid Login Credentials", status: 400};
+    return { data, error };
+  }
 };
 
 export const signOut = async () => {
