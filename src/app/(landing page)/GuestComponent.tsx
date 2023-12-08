@@ -4,7 +4,7 @@ import {
   Button,
   Card, Heading
 } from "@chakra-ui/react"
-import SignUpForm from '../signup/SignUpComponent'
+import { SignupContent } from '../signup/SignUpComponent'
 import {
   MdOutlineHomeWork,
   MdRoomPreferences,
@@ -224,7 +224,7 @@ export default function GuestHome() {
 
         {/* sign up */}
         <div className='flex flex-col w-[1000px] bg-white gap-10 px-24 py-14 rounded-lg z-10'>
-          <SignUpForm />
+          <SignupContent />
         </div>
       </div>
 
