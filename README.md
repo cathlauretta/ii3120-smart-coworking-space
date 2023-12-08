@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CENTRICE
 
-## Getting Started
+CENTRICE adalah layanan pendaftaran coworking space yang dibangun dengan Next.js.
 
-First, run the development server:
+## Instalasi
+
+Ikuti langkah-langkah berikut untuk menginstal proyek ini:
+
+1. Clone repositori ini:
+    ```bash
+    git clone https://github.com/cathlauretta/ii3120-smart-coworking-space
+    ```
+2. Masuk ke direktori proyek:
+    ```bash
+    cd ii3120-smart-coworking-space
+    ```
+3. Instal dependensi menggunakan npm atau yarn:
+    ```bash
+    npm install
+    ```
+
+## Build
+
+Untuk membangun proyek ini, jalankan perintah berikut:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Skema Database
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Berikut adalah skema database untuk layanan CENTRICE menggunakan DDL:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```sql
+create table
+  public.user (
+    id uuid not null,
+    email character varying null,
+    full_name text null,
+    phone_number text null,
+    current_membership_id uuid null,
+    created_at timestamp with time zone not null default now(),
+    constraint user_pkey primary key (id),
+    constraint user_current_membership_id_fkey foreign key (current_membership_id) references membership (id) on update cascade on delete cascade,
+    constraint user_id_fkey foreign key (id) references auth.users (id) on update cascade on delete cascade
+  ) tablespace pg_default;
 
-## Learn More
+create table
+  public.membership (
+    id uuid not null default gen_random_uuid (),
+    plan text null,
+    started_at time without time zone null,
+    expired_at timestamp without time zone null,
+    created_at timestamp with time zone not null default now(),
+    constraint membership_pkey primary key (id)
+  ) tablespace pg_default;
 
-To learn more about Next.js, take a look at the following resources:
+create table
+  public.workspace (
+    id uuid not null default gen_random_uuid (),
+    name text null,
+    contact text null,
+    location text null,
+    created_at timestamp with time zone not null default now(),
+    city text null,
+    constraint workspace_pkey1 primary key (id)
+  ) tablespace pg_default;
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+create table
+  public.room (
+    created_at timestamp with time zone not null default now(),
+    name text null,
+    facilities text null,
+    capacity numeric null default '0'::numeric,
+    workspace_id uuid null,
+    occupancy numeric null default '0'::numeric,
+    id uuid not null default gen_random_uuid (),
+    constraint room_pkey primary key (id),
+    constraint room_workspace_id_fkey foreign key (workspace_id) references workspace (id)
+  ) tablespace pg_default;
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+create table
+  public.event (
+    name text null,
+    workspace_id uuid null,
+    "desc" text null,
+    date date null,
+    start_time time without time zone null,
+    end_time time without time zone null,
+    created_at timestamp with time zone not null default now(),
+    contact text null,
+    id uuid not null default gen_random_uuid (),
+    constraint event_pkey primary key (id),
+    constraint event_workspace_id_fkey foreign key (workspace_id) references workspace (id)
+  ) tablespace pg_default;
+```
