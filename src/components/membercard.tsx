@@ -1,25 +1,89 @@
-import { Brand } from "./brand"
+import { Flex, Image, Text } from "@chakra-ui/react";
+import "@fontsource/monomaniac-one";
 
-// FAAAAAAAAAAAAAAAAAAAAAAAAAAAAKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-
-export default function MemberCard({ name }: { name: string }, { id }: { id: string }) {
+export const MemberCard = () => {
     return (
-        <div>
-            <div className="w-96 h-64 rounded-2xl shadow border-2 border-white flex-col justify-start items-center inline-flex">
-                <div className="w-14 h-96 relative origin-top-left bg-gradient-to-b from-white via-white to-white">
-                    <Brand />
-                    <div className="w-24 h-5 left-[17px] top-[397px] absolute origin-top-left -rotate-90" />
-                </div>
-                <div className="w-56 h-96 relative origin-top-left rotate-90 bg-gradient-to-l from-violet-500 to-violet-500">
-                    <div className="left-[88px] top-[375px] absolute origin-top-left -rotate-90 mix-blend-darken text-indigo-900 text-lg font-normal font-['Monomaniac One'] leading-7">CENTRICE MEMBER CARD</div>
-                    <div className="left-[113px] top-[400px] absolute origin-top-left -rotate-90 mix-blend-darken text-indigo-900 text-4xl font-normal font-['Monomaniac One'] leading-7">{id}</div>
-                    <img className="w-52 h-36 left-[-53px] top-[397px] absolute origin-top-left -rotate-90" src="https://via.placeholder.com/210x147" />
-                    <div className="pl-14 pr-20 left-[167px] top-[458px] absolute origin-top-left -rotate-90 bg-white rounded-lg justify-start items-center inline-flex">
-                        <div className="mix-blend-darken text-indigo-900 text-lg font-normal font-['Monomaniac One'] leading-7">{name.toUpperCase()}</div>
-                    </div>
-                    <div className="w-80 h-56 left-[-0px] top-[428px] absolute origin-top-left -rotate-90 mix-blend-lighten bg-gradient-to-r from-white via-white to-white" />
-                </div>
-            </div>
-        </div>
-    )
-}
+        <Flex
+            w="428px"
+            h="270px"
+            bgGradient="linear(to-br, pink.200, purple.200)"
+            borderRadius="16px"
+            overflow="hidden"
+            borderColor="white.800"
+            borderWidth="2px">
+            <Flex flexDir="column" w="100%">
+                <Flex h="53px" alignItems="center" pl="28px" bgGradient="linear(to-r, purple.400, purple.100, purple.300)">
+                    <Image boxSize="95px" src="assets/image/brand.svg" />
+                </Flex>
+                <Flex
+                    w="100%"
+                    h="100%"
+                    flexDir="column"
+                    pl="29px"
+                    overflow="hidden">
+                    <Image
+                        boxSize="210px"
+                        src="assets/image/CardComponent2.svg"
+                        overflow="hidden"
+                    />
+                </Flex>
+                <Flex
+                    flexDir="column"
+                    h="100%"
+                    w="100%"
+                    position="relative"
+                    top="-10px">
+                    <Flex flexDir="column">
+                        <Flex alignItems="center" gap="8px" pl="30px">
+                            <Image
+                                boxSize="12px"
+                                src="assets/image/CardDiamond.svg"
+                            />
+                            <Text
+                                fontSize="19px"
+                                textColor="purple.800"
+                                fontWeight="200"
+                                fontFamily="Monomaniac One"
+                                mb="2px">
+                                CENTRICE MEMBER CARD
+                            </Text>
+                        </Flex>
+                        <Flex pl="28px" position="relative" top="-16px">
+                            <Text
+                                fontSize="34px"
+                                textColor="purple.800"
+                                fontWeight="200"
+                                fontFamily="Monomaniac One">
+                                0982 1283 2198
+                            </Text>
+                        </Flex>
+                    </Flex>
+                    <Flex
+                        bg="white"
+                        pl="28px"
+                        borderEndRadius="8px"
+                        position="relative"
+                        top="-8px">
+                        <Text
+                            fontSize="20px"
+                            textColor="purple.800"
+                            fontWeight="400"
+                            fontFamily="Monomaniac One"
+                            mb="1px">
+                            CATHLEEN LAURETTA
+                        </Text>
+                    </Flex>
+                </Flex>
+            </Flex>
+            <Flex w="200px" h="53px" bgGradient="linear(to-l, purple.400, purple.300)">
+                <Image
+                    boxSize="200px"
+                    src="assets/image/CardComponent.svg"
+                    position="relative"
+                    top="-8px"
+                    right="-16px"
+                />
+            </Flex>
+        </Flex>
+    );
+};
