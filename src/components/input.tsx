@@ -53,6 +53,6 @@ const InputSearch = React.forwardRef<HTMLInputElement, InputProps>(
     );
   }
 );
-Input.displayName = 'Input';
+InputSearch.displayName = 'Input';
 
 export { InputSearch };
