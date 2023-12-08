@@ -26,7 +26,7 @@ import {
   FaMapPin
 } from 'react-icons/fa'
 
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 // Data
 const features = [
@@ -147,13 +147,23 @@ const locationsDummy: Location[] = [
 
 export default function GuestHome() {
   const facilityRef = useRef<HTMLDivElement>(null)
-
+  const [locations, setLocations] = useState<Location[]>([])
   
   const executeScroll = () => {
     if (facilityRef.current) {
       facilityRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   }
+
+  useEffect(() => {
+    const fecthLocations = async () => {
+      const res = await fetch('/api/workspace')
+      const data = await res.json().then((data) => {
+        setLocations(data.data)
+      })
+    }
+    fecthLocations()
+  }, [])
 
 
   return (
@@ -332,55 +342,55 @@ export default function GuestHome() {
           />
         </div>
         {/* Content */}
-        <div className='flex w-full flex-col px-10 gap-[50px] z-10 items-center'>
+        <div className='flex w-full flex-col px-[150px] py-[50px] gap-[50px] z-10 items-center'>
           <Heading className="flex w-fit text-white text-4xl font-extrabold ">Prices</Heading>
           <div className='flex w-full h-fit gap-[25px] items-center'>
-            {prices.map((data, index) => (
-              <div className='flex w-full flex-col rounded-lg overflow-hidden'>
+            {prices.map((price, index) => (
+              <div className='flex w-full flex-col bg-purple-300 rounded-lg overflow-hidden'>
                 <div className={`h-12 px-10 py-2.5 flex-col justify-center items-center inline-flex`}>
-                  <div className="text-center text-purple-900 text-2xl font-bold leading-loose">{data.package}</div>
+                  <div className="text-center text-purple-900 text-2xl font-bold font-['Inter'] leading-loose">{price.package}</div>
                 </div>
-                <div className={`flex px-20 ${data.py} bg-white shadow border-4 border-slate-200 flex-col justify-center items-center gap-10 inline-flex rounded-lg`}>
+                <div className={`flex px-20 ${price.py} bg-white shadow border-4 border-purple-300 flex-col justify-center items-center gap-10 inline-flex rounded-b-lg`}>
                   <div className="flex gap-1 inline-flex">
                     <div className="flex items-start text-justify text-gray-900 text-base font-bold  ">RP</div>
-                    <Heading className="flex items-center text-justify text-gray-900 text-6xl font-extrabold ">{data.price}K</Heading>
-                    <div className="flex items-end text-justify text-gray-900 text-base font-bold ">/{data.duration}</div>
+                    <Heading className="flex items-center text-justify text-gray-900 text-6xl font-extrabold ">{price.price}K</Heading>
+                    <div className="flex items-end text-justify text-gray-900 text-base font-bold ">/{price.duration}</div>
                   </div>
                   <div className='flex flex-col justify-center items-start gap-5 inline-flex'>
                     <div className='flex gap-[25px]'>
-                      {data.virtualOffice ? <BsCheckCircleFill className='w-[20px] h-[20px] fill-green-400'/> : <BsXCircleFill className='w-[20px] h-[20px] fill-red-300' />}
+                      {price.virtualOffice ? <BsCheckCircleFill className='w-[20px] h-[20px] fill-green-400'/> : <BsXCircleFill className='w-[20px] h-[20px] fill-red-300' />}
                       <div className="text-gray-900 text-base font-normal leading-normal">Virtual Office</div>
                     </div>
                     <div className='flex gap-[25px]'>
-                      {data.flexDesk ? <BsCheckCircleFill className='w-[20px] h-[20px] fill-green-400'/> : <BsXCircleFill className='w-[20px] h-[20px] fill-red-300' />}
+                      {price.flexDesk ? <BsCheckCircleFill className='w-[20px] h-[20px] fill-green-400'/> : <BsXCircleFill className='w-[20px] h-[20px] fill-red-300' />}
                       <div className="text-gray-900 text-base font-normal leading-normal">Flex Desk</div>
                     </div>
                     <div className='flex gap-[25px]'>
-                      {data.wifi ? <BsCheckCircleFill className='w-[20px] h-[20px] fill-green-400'/> : <BsXCircleFill className='w-[20px] h-[20px] fill-red-300' />}
+                      {price.wifi ? <BsCheckCircleFill className='w-[20px] h-[20px] fill-green-400'/> : <BsXCircleFill className='w-[20px] h-[20px] fill-red-300' />}
                       <div className="text-gray-900 text-base font-normalleading-normal">Wifi</div>
                     </div>
                     <div className='flex gap-[25px]'>
-                      {data.meetingRoom ? <BsCheckCircleFill className='w-[20px] h-[20px] fill-green-400'/> : <BsXCircleFill className='w-[20px] h-[20px] fill-red-300' />}
+                      {price.meetingRoom ? <BsCheckCircleFill className='w-[20px] h-[20px] fill-green-400'/> : <BsXCircleFill className='w-[20px] h-[20px] fill-red-300' />}
                       <div className="text-gray-900 text-base font-normal leading-normal">Meeting Room</div>
                     </div>
                     <div className='flex gap-[25px]'>
-                      {data.communityAccess ? <BsCheckCircleFill className='w-[20px] h-[20px] fill-green-400'/> : <BsXCircleFill className='w-[20px] h-[20px] fill-red-300' />}
+                      {price.communityAccess ? <BsCheckCircleFill className='w-[20px] h-[20px] fill-green-400'/> : <BsXCircleFill className='w-[20px] h-[20px] fill-red-300' />}
                       <div className="text-gray-900 text-base font-normal leading-normal">Community Access</div>
                     </div>
                     <div className='flex gap-[25px]'>
-                      {data.freeCoffee ? <BsCheckCircleFill className='w-[20px] h-[20px] fill-green-400'/> : <BsXCircleFill className='w-[20px] h-[20px] fill-red-300' />}
+                      {price.freeCoffee ? <BsCheckCircleFill className='w-[20px] h-[20px] fill-green-400'/> : <BsXCircleFill className='w-[20px] h-[20px] fill-red-300' />}
                       <div className="text-gray-900 text-base font-normal leading-normal">Free Coffee</div>
                     </div>
                   </div>
                   <Button
                     as={"a"}
                     color={'white'}
-                    bg={'purple.300'}
+                    bg={'purple.400'}
                     px={6}
                     _hover={{
                       bg: 'purple.500',
                     }}
-                    variant={data.button}
+                    variant={index === 1? 'solid' : 'outline'}
                     href="/login"
                   >
                     Daftar Sekarang
@@ -405,7 +415,7 @@ export default function GuestHome() {
           referrerPolicy="no-referrer-when-downgrade">
         </iframe>
         <div className='grid grid-cols-3 gap-[50px]'>
-          {locationsDummy.map((location, index) => (
+          {locations.map((location, index) => (
             <Card
               key={index}
               direction={{ base: 'row', sm: 'row' }}
