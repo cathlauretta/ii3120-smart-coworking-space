@@ -1,7 +1,12 @@
 import { Flex, Image, Text } from "@chakra-ui/react";
 import "@fontsource/monomaniac-one";
 
-export const MemberCard = () => {
+interface Props {
+    number: string,
+    name: string
+}
+
+export const MemberCard = ({number, name}: Props) => {
     return (
         <Flex
             w="428px"
@@ -54,7 +59,7 @@ export const MemberCard = () => {
                                 textColor="purple.800"
                                 fontWeight="200"
                                 fontFamily="Monomaniac One">
-                                0982 1283 2198
+                                {number}
                             </Text>
                         </Flex>
                     </Flex>
@@ -70,7 +75,7 @@ export const MemberCard = () => {
                             fontWeight="400"
                             fontFamily="Monomaniac One"
                             mb="1px">
-                            CATHLEEN LAURETTA
+                            {name.toUpperCase()}
                         </Text>
                     </Flex>
                 </Flex>
