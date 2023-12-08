@@ -2,22 +2,59 @@
 import { BasicInput } from "@/components/Input";
 import { Password } from "@/components/Password";
 import { Button, Checkbox, Flex, Link, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaEnvelope, FaFacebook, FaGoogle } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+
+interface user {
+    email: string;
+    password: string;
+}
 
 export function LoginContent() {
     const DEFAULT_TEXT_COLOR = "gray.800";
+    const router = useRouter();
 
-    const [email, setEmail] = useState<string>();
+
+    const [email, setEmail] = useState<string>('');
     const handleEmail = (item: string) => {
         setEmail(item);
         // console.log("Changed: " + email);
     };
 
-    const [pass, setPass] = useState<string>();
+    const [pass, setPass] = useState<string>('');
     const handlePass = (item: string) => {
         setPass(item);
         // console.log("Changed: " + pass);
+    };
+
+    const handleLogin = async (email: string, pass: string) => {
+        const user: user = {
+            email: email,
+            password: pass,
+        };
+
+        try {
+            const res = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(user),
+            });
+    
+            const data = await res.json();
+            // console.log(data);
+    
+            if (res.ok){
+                router.push('/');
+                // window.location.reload();
+            } else {
+                alert(data.message);
+            }
+        } catch (error){
+            // console.error(error);
+        }
     };
 
     return (
@@ -100,7 +137,7 @@ export function LoginContent() {
                     color="white"
                     _hover={{ bg: "purple.400" }}
                     onClick={() => {
-                        // login
+                        handleLogin(email, pass);
                     }}>
                     Log In
                 </Button>

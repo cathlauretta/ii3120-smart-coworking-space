@@ -9,7 +9,6 @@ import { Brand } from "@/components/brand";
 import { LoginContent } from "./LogInComponent";
 
 export default function LoginPage() {
-
     return (
         <Flex w="100%" h="100vh">
             {/* Kiri */}
