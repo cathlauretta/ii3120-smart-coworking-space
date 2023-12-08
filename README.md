@@ -27,6 +27,14 @@ Untuk membangun proyek ini, jalankan perintah berikut:
 npm run build
 ```
 
+## Start
+
+Setelah proses build selesai dilakukan, jalankan perintah berikut untuk menjalankan aplikasi pada localhost:
+
+```bash
+npm start
+```
+
 ## Skema Database
 
 Berikut adalah skema database untuk layanan CENTRICE menggunakan DDL:
