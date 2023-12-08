@@ -29,10 +29,13 @@ export const addUserTable = async (userPayload: Payload<'users'>) => {
 export const getUserById = async (id: string | undefined) => {
   console.log(id);
   const supabase = createClient(cookies());
+  console.log(supabase);
   const query = supabase
-    .from('user')
+    .from('user_data')
     .select('id, email, full_name, phone_number, current_membership_id')
     .eq('id', id as string)
+    .single();
+  console.log(query);
   const { data, error } = await query;
   console.log('data res: ', data);
   return { data, error };
