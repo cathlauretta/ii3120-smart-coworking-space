@@ -1,14 +1,15 @@
 'use client';
 
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
 import { Icon } from "@chakra-ui/react";
 import { Heading, Text, Stack, Image } from '@chakra-ui/react';
 import { createIcon, PhoneIcon, TimeIcon } from '@chakra-ui/icons';
 import { MemberCard } from '@/components/membercard'
 import SearchBar from '@/components/searchbar';
-import { Button, ButtonGroup } from '@chakra-ui/react'
+import { Button, ButtonGroup, Box } from '@chakra-ui/react'
 import WithSubnavigation from "@/components/navbar"
+import { useQRCode } from 'next-qrcode';
 
 export const locationCustom = createIcon({
   displayName: "locationCustom",
@@ -148,6 +149,10 @@ export default function CustomerHome() {
     current_membership_id: ''
   });
 
+  const [showCard, setShowCard] = useState(true);
+
+  const { SVG } = useQRCode();
+
   useEffect(() => {
     const fetchData = async () => {
       const res1 = await getSelf();
@@ -207,8 +212,22 @@ export default function CustomerHome() {
             </div>
           </div>
 
-          <div className="flex w-full h-fit py-10 relative bg-violet-400 rounded-bl-lg rounded-br-lg border-4 border-white items-center justify-center">
-            <MemberCard  number={`${cardID(user?.id)}`} name={user?.full_name}/>
+          <div className="flex flex-row w-full h-fit py-10 relative bg-violet-400 rounded-bl-lg rounded-br-lg border-4 border-white items-center justify-center">
+            <div className='flex h-full w-[200px] items-center'>
+              <Button colorScheme='pink' variant='solid' className={`rotate-90 ${showCard? 'invisible' : 'visible'}`} onClick={() => setShowCard(true)}>Gunakan Member Card</Button>
+            </div>
+            <div className='flex w-full h-[300px] items-center'>
+              { showCard ? <MemberCard  number={`${cardID(user?.id)}`} name={user?.full_name}/> : 
+                <div className='flex w-[428px] h-[270px] justify-center rounded-lg'>
+                  <div className='flex w-fit h-fit rounded-lg overflow-hidden'>
+                    <SVG text={`${cardID(user?.id)}`} options={{ margin: 2, width: 270, color: { dark: '#000000', light: '#FFFFFF', }, }} />
+                  </div>
+                </div>
+              }
+            </div>
+            <div className='flex h-full w-[200px] items-center'>
+              <Button colorScheme='pink' variant='solid' className={`-rotate-90 ${showCard? 'visible' : 'invisible'}`} onClick={() => setShowCard(false)}>Gunakan QR Code</Button>
+            </div>
           </div>
         </div>
 
