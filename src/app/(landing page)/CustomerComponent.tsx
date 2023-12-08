@@ -137,7 +137,14 @@ export default function CustomerHome() {
   return (
     <div>
       <div className='px-[150px] py-[100px] gap-[50px] bg-[#FBB6CE] flex gap-2'>
-        <div className='w-6/12'>
+      <div className='absolute inset-0 -z-2'>
+          <Image
+            src="/assets/image/landing-background.png"
+            alt="Picture of the author"
+            objectFit="cover"
+          />
+        </div>
+        <div className='w-6/12 z-10'>
           <div className="rounded-t-md w-full h-20 px-7 py-4 bg-white shadow">
             <Heading className="text-gray-900 text-4xl font-extrabold">Workspace</Heading>
           </div>
@@ -164,7 +171,7 @@ export default function CustomerHome() {
 
 
 
-        <div className='w-5/12'>
+        <div className='w-5/12 z-10'>
           <div className="rounded-t-md w-full h-20 px-7 py-4 bg-white shadow">
             <Heading className="text-gray-900 text-4xl font-extrabold">Pesan Makanan</Heading>
           </div>
@@ -334,7 +341,7 @@ export default function CustomerHome() {
                   <Heading size='md'>{event.name}</Heading>
                   <Text className='text-slate-600 text-lg font-semibold leading-7'>{event.workspace_name}
                   </Text>
-                  <Text className='mb-4 leading-0'>
+                  <Text className='mb-4 leading-0 break-word text-justify px-0 py-1'>
                     {event.desc}
                   </Text>
                 </Stack>
@@ -342,7 +349,7 @@ export default function CustomerHome() {
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
                     <path d="M18 8C18 4.69 15.31 2 12 2C8.69 2 6 4.69 6 8C6 12.5 12 19 12 19C12 19 18 12.5 18 8ZM10 8C10 6.9 10.9 6 12 6C13.1 6 14 6.9 14 8C14 8.53043 13.7893 9.03914 13.4142 9.41421C13.0391 9.78929 12.5304 10 12 10C11.4696 10 10.9609 9.78929 10.5858 9.41421C10.2107 9.03914 10 8.53043 10 8ZM5 20V22H19V20H5Z" fill="black" />
                   </svg>
-                  <Text className='w-80 text-gray-900'>{event.location}</Text>
+                  <Text className='w-80 text-gray-900 break-word text-justify px-0 py-0'>{event.location}</Text>
                 </div>
                 <div className='flex gap-3 my-1'>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">

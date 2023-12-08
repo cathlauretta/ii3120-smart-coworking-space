@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import {
   Button,
-  Card,
+  Card, Heading
 } from "@chakra-ui/react"
 import SignUpForm from '../signup/SignUpComponent'
 import {
@@ -175,8 +175,8 @@ export default function GuestHome() {
           {/* left side */}
           <div className='flex flex-col w-full h-full bg-white content-evenly px-12 py-14 rounded-lg gap-10'>
             <div className='flex flex-col w-full gap-5'>
-              <div className="flex w-full text-gray-900 text-4xl font-extrabold font-['Inter'] leading-10">Centrice, Coolest Workspace Ever!</div>
-              <div className="w-full text-gray-900 text-base font-normal font-['Inter'] leading-normal">
+              <Heading className="flex w-full text-gray-900 text-4xl font-extrabold leading-10">Centrice, Coolest Workspace Ever!</Heading>
+              <div className="w-full text-gray-900 text-base font-normal leading-normal">
                 Lelah dan ingin menemukan suasana kerja dan belajar baru agar harimu lebih sejuk? Ayo bergabung dengan kami menjadi bagian dari Sentrice Member untuk bisa merasakan sensasi belajar dan bekerja yang nyaman!
               </div>
             </div>
@@ -220,14 +220,14 @@ export default function GuestHome() {
 
       {/* Facility */}
       <div className='flex flex-col w-full h-fit px-[150px] py-[100px] gap-[50px] bg-white' ref={facilityRef}>
-        <div className="flex w-full text-gray-900 text-4xl font-extrabold font-['Inter'] leading-10">Facility</div>
+        <Heading className="flex w-full text-gray-900 text-4xl font-extrabold leading-10">Facility</Heading>
         <Card
           direction={{ base: 'column', sm: 'row' }}
           overflow='hidden'
           variant='outline'
           outlineColor='gray.200'
         >
-          <div className="w-[700px] h-fit text-gray-900 text-base font-normal font-['Inter'] leading-normal break-word text-justify py-16 px-8">
+          <div className="w-[700px] h-fit text-gray-900 text-base font-normal leading-normal break-word text-justify py-16 px-8">
             Centrice adalah smart coworking space yang menyediakan lingkungan kerja yang modern, terkoneksi secara digital, dan dirancang untuk meningkatkan produktivitas para profesional.
             <br></br><br></br>Dengan ruang kerja fleksibel yang dapat disesuaikan, teknologi canggih untuk mendukung kinerja, ruang meeting yang modern, area kolaborasi yang inspiratif, fasilitas pendukung lengkap, serta sistem keamanan dan privasi yang terjamin, Centrice hadir sebagai tempat ideal bagi individu yang ingin bekerja secara efisien sambil terhubung dengan komunitas yang dinamis.
           </div>
@@ -252,9 +252,9 @@ export default function GuestHome() {
               <div className='flex flex-col p-[40px] gap-[20px]'>
                 <div className='flex w-full gap-[20px] items-center'>
                   {feature.icon}
-                  <div className="text-gray-900 text-2xl font-bold font-['Inter'] leading-loose">{feature.title}</div>
+                  <div className="text-gray-900 text-2xl font-bold leading-loose">{feature.title}</div>
                 </div>
-                <div className="text-gray-900 text-base font-normal font-['Inter'] leading-normal break-word text-justify">
+                <div className="text-gray-900 text-base font-normal leading-normal break-word text-justify">
                   {feature.description}
                 </div>
               </div>
@@ -265,7 +265,7 @@ export default function GuestHome() {
 
       {/* Community */}
       <div className='flex flex-col w-full h-fit px-[150px] py-[100px] gap-[50px] bg-gray-100'>
-        <div className="flex w-full text-gray-900 text-4xl font-extrabold font-['Inter'] leading-10">Community</div>
+        <Heading className="flex w-full text-gray-900 text-4xl font-extrabold leading-10">Community</Heading>
         <Card
           direction={{ base: 'column', sm: 'row' }}
           overflow='hidden'
@@ -279,7 +279,7 @@ export default function GuestHome() {
             height={1000}
             className='w-full h-[400px] object-cover overflow-hidden'
           />
-          <div className="w-[700px] h-fit text-gray-900 text-base font-normal font-['Inter'] leading-normal break-word text-justify py-16 px-8">
+          <div className="w-[700px] h-fit text-gray-900 text-base font-normal leading-normal break-word text-justify py-16 px-8">
             Di sini, kami menyediakan platform yang mendukung interaksi antaranggota, baik melalui acara-acara khusus, sesi networking, atau program pengembangan diri. Dari diskusi panel yang menginspirasi hingga workshop praktis, komunitas kami menjadi tempat bagi para profesional untuk saling bertukar gagasan, pengalaman, dan mendapatkan inspirasi baru. Dengan fasilitas ini, kami bertujuan untuk menciptakan iklim kerja yang berdaya dorong, di mana kolaborasi dan pertukaran ide adalah inti dari pertumbuhan dan kesuksesan bersama.
           </div>
         </Card>
@@ -332,44 +332,44 @@ export default function GuestHome() {
           />
         </div>
         {/* Content */}
-        <div className='flex w-full flex-col px-[150px] py-[50px] gap-[50px] z-10 items-center'>
-          <div className="flex w-fit text-white text-4xl font-extrabold font-['Inter']">Prices</div>
+        <div className='flex w-full flex-col px-10 gap-[50px] z-10 items-center'>
+          <Heading className="flex w-fit text-white text-4xl font-extrabold ">Prices</Heading>
           <div className='flex w-full h-fit gap-[25px] items-center'>
             {prices.map((data, index) => (
               <div className='flex w-full flex-col rounded-lg overflow-hidden'>
-                <div className={`h-12 px-10 py-2.5 bg-${data.color} flex-col justify-center items-center inline-flex`}>
-                  <div className="text-center text-purple-900 text-2xl font-bold font-['Inter'] leading-loose">{data.package}</div>
+                <div className={`h-12 px-10 py-2.5 flex-col justify-center items-center inline-flex`}>
+                  <div className="text-center text-purple-900 text-2xl font-bold leading-loose">{data.package}</div>
                 </div>
-                <div className={`flex px-20 ${data.py} bg-white shadow border-4 border-${data.color} flex-col justify-center items-center gap-10 inline-flex rounded-b-lg`}>
+                <div className={`flex px-20 ${data.py} bg-white shadow border-4 border-slate-200 flex-col justify-center items-center gap-10 inline-flex rounded-lg`}>
                   <div className="flex gap-1 inline-flex">
-                    <div className="flex items-start text-justify text-gray-900 text-base font-bold font-['Inter'] ">RP</div>
-                    <div className="flex items-center text-justify text-gray-900 text-6xl font-extrabold font-['Inter'] ">{data.price}K</div>
-                    <div className="flex items-end text-justify text-gray-900 text-base font-bold font-['Inter'] ">/{data.duration}</div>
+                    <div className="flex items-start text-justify text-gray-900 text-base font-bold  ">RP</div>
+                    <Heading className="flex items-center text-justify text-gray-900 text-6xl font-extrabold ">{data.price}K</Heading>
+                    <div className="flex items-end text-justify text-gray-900 text-base font-bold ">/{data.duration}</div>
                   </div>
                   <div className='flex flex-col justify-center items-start gap-5 inline-flex'>
                     <div className='flex gap-[25px]'>
                       {data.virtualOffice ? <BsCheckCircleFill className='w-[20px] h-[20px] fill-green-400'/> : <BsXCircleFill className='w-[20px] h-[20px] fill-red-300' />}
-                      <div className="text-gray-900 text-base font-normal font-['Inter'] leading-normal">Virtual Office</div>
+                      <div className="text-gray-900 text-base font-normal leading-normal">Virtual Office</div>
                     </div>
                     <div className='flex gap-[25px]'>
                       {data.flexDesk ? <BsCheckCircleFill className='w-[20px] h-[20px] fill-green-400'/> : <BsXCircleFill className='w-[20px] h-[20px] fill-red-300' />}
-                      <div className="text-gray-900 text-base font-normal font-['Inter'] leading-normal">Flex Desk</div>
+                      <div className="text-gray-900 text-base font-normal leading-normal">Flex Desk</div>
                     </div>
                     <div className='flex gap-[25px]'>
                       {data.wifi ? <BsCheckCircleFill className='w-[20px] h-[20px] fill-green-400'/> : <BsXCircleFill className='w-[20px] h-[20px] fill-red-300' />}
-                      <div className="text-gray-900 text-base font-normal font-['Inter'] leading-normal">Wifi</div>
+                      <div className="text-gray-900 text-base font-normalleading-normal">Wifi</div>
                     </div>
                     <div className='flex gap-[25px]'>
                       {data.meetingRoom ? <BsCheckCircleFill className='w-[20px] h-[20px] fill-green-400'/> : <BsXCircleFill className='w-[20px] h-[20px] fill-red-300' />}
-                      <div className="text-gray-900 text-base font-normal font-['Inter'] leading-normal">Meeting Room</div>
+                      <div className="text-gray-900 text-base font-normal leading-normal">Meeting Room</div>
                     </div>
                     <div className='flex gap-[25px]'>
                       {data.communityAccess ? <BsCheckCircleFill className='w-[20px] h-[20px] fill-green-400'/> : <BsXCircleFill className='w-[20px] h-[20px] fill-red-300' />}
-                      <div className="text-gray-900 text-base font-normal font-['Inter'] leading-normal">Community Access</div>
+                      <div className="text-gray-900 text-base font-normal leading-normal">Community Access</div>
                     </div>
                     <div className='flex gap-[25px]'>
                       {data.freeCoffee ? <BsCheckCircleFill className='w-[20px] h-[20px] fill-green-400'/> : <BsXCircleFill className='w-[20px] h-[20px] fill-red-300' />}
-                      <div className="text-gray-900 text-base font-normal font-['Inter'] leading-normal">Free Coffee</div>
+                      <div className="text-gray-900 text-base font-normal leading-normal">Free Coffee</div>
                     </div>
                   </div>
                   <Button
@@ -394,7 +394,7 @@ export default function GuestHome() {
 
       {/* Locations */}
       <div className='flex flex-col w-full h-fit px-[150px] py-[100px] gap-[50px] bg-white'>
-        <div className="flex w-full text-gray-900 text-4xl font-extrabold font-['Inter'] leading-10">Locations</div>
+        <div className="flex w-full text-gray-900 text-4xl font-extrabold leading-10">Locations</div>
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.0420833059343!2d107.61051291145665!3d-6.885562793084668!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e6f8f33f8a33%3A0x12b7301534d13a23!2sJl.%20Sumur%20Bandung%20No.20%2C%20RW.01%2C%20Lb.%20Siliwangi%2C%20Kecamatan%20Coblong%2C%20Kota%20Bandung%2C%20Jawa%20Barat%2040132!5e0!3m2!1sen!2sid!4v1701981011213!5m2!1sen!2sid"
           width="1548"
@@ -424,16 +424,16 @@ export default function GuestHome() {
                 </div>
                 <div className='flex flex-col h-fit p-[40px] gap-[20px]'>
                   <div className='flex w-full flex-col justify-start items-start inline-flex'>
-                    <div className="text-gray-900 text-2xl font-bold font-['Inter']">{location.name}</div>
-                    <div className="self-stretch text-slate-600 text-lg font-semibold font-['Inter'] leading-7">{location.city}</div>
+                    <div className="text-gray-900 text-2xl font-bold ">{location.name}</div>
+                    <div className="self-stretch text-slate-600 text-lg font-semibold leading-7">{location.city}</div>
                   </div>
                   <div className='flex flex-row justify-start items-start gap-[20px]'>
                     <FaMapPin className='w-[28px] h-[21px] pt-[5px]' />
-                    <div className="text-gray-900 text-base font-normal font-['Inter'] leading-normal break-word text-justify">{location.location}</div>
+                    <div className="text-gray-900 text-base font-normal leading-normal break-word text-justify">{location.location}</div>
                   </div>
                   <div className='flex flex-row justify-start items-start gap-[20px]'>
                     <FaClock className='w-[16px] h-[16px]' />
-                    <div className="text-gray-900 text-base font-normal font-['Inter'] leading-normal break-word text-justify">{location.contact}</div>
+                    <div className="text-gray-900 text-base font-normal leading-normal break-word text-justify">{location.contact}</div>
                   </div>
                 </div>
               </div>

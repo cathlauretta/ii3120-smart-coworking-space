@@ -41,6 +41,7 @@ export default function Home() {
       {user?.id ? ( <CustomerHome /> ) : ( <GuestHome />
       )}
     </Box>
-      // <CustomerHome /></>
+      // <CustomerHome />
+      // <GuestHome/>
   );
 }
