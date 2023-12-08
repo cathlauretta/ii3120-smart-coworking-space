@@ -20,9 +20,9 @@ export const registerAndCreateAccount = async (
     email: accountPayload.email as string,
     password,
     options: {
-      emailRedirectTo: `${requestUrl}/api/auth/callback`,
+      emailRedirectTo: `${requestUrl}/callback`,
       data: {
-        username: accountPayload.email,
+        email: accountPayload.email,
         full_name: accountPayload.full_name,
         phone_number: null,
       }
@@ -50,11 +50,9 @@ export const signOut = async () => {
 
 export const getCurrentUser = async () => {
   try {
-    console.log('cookies', cookies());
     const supabase = createClient(cookies());
     const query = supabase.auth.getUser();
     const { data, error } = await query;
-    console.log('data', data);
     if (error) {
       console.log(error);
       throw error;

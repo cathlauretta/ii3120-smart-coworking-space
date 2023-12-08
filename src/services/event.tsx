@@ -5,7 +5,7 @@ import { DbResult, Payload, Tables } from '../lib/databasetypes';
 export const createEvent = async (eventsPayload: Payload<'events'>) => {
     const supabase = createClient(cookies());
     const query = supabase
-      .from('event')
+      .from('event_joined')
       .insert([{ ...eventsPayload }])
       .select()
       .single();
@@ -19,7 +19,7 @@ export const createEvent = async (eventsPayload: Payload<'events'>) => {
   ) => {
     const supabase = createClient(cookies());
     const query = supabase
-      .from('event')
+      .from('event_joined')
       .update({ ...eventsPayload })
       .eq('id', id as string)
       .select();
@@ -30,7 +30,7 @@ export const createEvent = async (eventsPayload: Payload<'events'>) => {
   export const deleteEvents = async (id: string | null | undefined) => {
     const supabase = createClient(cookies());
     const { error } = await supabase
-      .from('event')
+      .from('event_joined')
       .delete()
       .eq('id', id as string);
     return { error };

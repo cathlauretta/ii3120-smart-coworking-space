@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { cookies } from 'next/headers';
 import { Payload } from '../lib/databasetypes';
+import { env } from 'process';
 
 export interface UserUpdatePayload {
   email?: String | null;
@@ -17,45 +18,27 @@ export interface UserPayloadUpdate {
   password?: String | null;
 }
 
-export const addUserTable = async (userPayload: Payload<'users'>, password: string) => {
+export const addUserTable = async (userPayload: Payload<'users'>) => {
   const supabase = createClient(cookies());
-  const newUser = {...userPayload, password:password};
+  const newUser = {...userPayload};
   const query = supabase.from('user').insert(newUser);
   const { data, error } = await query;
   return { data, error };
 }
 
 export const getUserById = async (id: string | undefined) => {
+  console.log(id);
   const supabase = createClient(cookies());
+  console.log(supabase);
   const query = supabase
-    .from('user')
-    .select()
+    .from('user_data')
+    .select('id, email, full_name, phone_number, current_membership_id')
     .eq('id', id as string)
     .single();
+  console.log(query);
   const { data, error } = await query;
+  console.log('data res: ', data);
   return { data, error };
-};
-
-export const getUserByEmail = async (email: string | undefined) => {
-  try {
-    console.log('id seng login', email);
-    const supabase = createClient(cookies());
-    const query = supabase
-      .from('user')
-      .select('id, email, full_name, phone_number, current_membership_id')
-      .eq('email', email as string)
-      .single();
-    console.log('query', query);
-    const { data, error } = await query;
-    if (error) {
-      console.log(error);
-      throw error;
-    }
-
-    return { data, error: null };
-  } catch (error) {
-    return { data: null, error };
-  }
 };
 
 export const updateUser = async (

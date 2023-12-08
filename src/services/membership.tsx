@@ -5,7 +5,7 @@ import { DbResult, Payload, Tables } from '../lib/databasetypes';
 export const createMembership = async (membershipPayload: Payload<'memberships'>) => {
   const supabase = createClient(cookies());
   const query = supabase
-    .from('membership')
+    .from('membership_data')
     .insert([{ ...membershipPayload }])
     .select()
     .single();
@@ -19,7 +19,7 @@ export const updateMembership = async (
 ) => {
   const supabase = createClient(cookies());
   const query = supabase
-    .from('membership')
+    .from('membership_data')
     .update({ ...membershipPayload })
     .eq('id', id as string)
     .select();
@@ -30,7 +30,7 @@ export const updateMembership = async (
 export const deleteMembership = async (id: string | null | undefined) => {
   const supabase = createClient(cookies());
   const { error } = await supabase
-    .from('membership')
+    .from('membership_data')
     .delete()
     .eq('id', id as string);
   return { error };
@@ -39,7 +39,7 @@ export const deleteMembership = async (id: string | null | undefined) => {
 export const getMembership = async (id: string | null | undefined) => {
   const supabase = createClient(cookies());
   const query = supabase
-    .from('membership')
+    .from('membership_data')
     .select('*')
     .eq('id', id as string)
     .single();
@@ -50,7 +50,7 @@ export const getMembership = async (id: string | null | undefined) => {
 export const getMemberships = async () => {
   const supabase = createClient(cookies());
   const query = supabase
-    .from('membership')
+    .from('membership_data')
     .select(
       '*'
     );

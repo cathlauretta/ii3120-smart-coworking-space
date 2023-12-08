@@ -20,8 +20,7 @@ async function getSelf() {
     }
 
     const data = await response.json();
-    console.log(data);
-    if (data.message=="No user is signed in") return null;
+    console.log(data.status);
     return data;
   } catch (error) {
     console.log(error);
@@ -29,16 +28,19 @@ async function getSelf() {
 }
 
 export default function Home() {
-  const [user, setUser] = useState<{ id: string; full_name: string; phone_number: string; email: string; role: string; }>();
+  const [status, setStatus] = useState('loading');
+  
   useEffect(() => {
-    getSelf().then((data) => {
-      setUser(data);
-      console.log(user);
-    });
+    async function checkLogin() {
+      const data = await getSelf();
+      setStatus(data.status);
+    }
+    checkLogin();
   }, []);
+
   return (
     <Box>
-      {user?.id ? ( <CustomerHome /> ) : ( <GuestHome />
+      {status === 'success' ? ( <CustomerHome /> ) : ( <GuestHome />
       )}
     </Box>
       // <CustomerHome />

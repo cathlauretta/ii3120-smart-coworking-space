@@ -27,11 +27,8 @@ export function SignupContent() {
     }
 
     const handleRegister = async ( user : user ) => {
-        console.log("ppppp")
         try {
-            console.log('masuk')
             console.log(user);
-            console.log("hai")
             const res = await fetch('/api/auth/register', {
                 method: 'POST',
                 body: JSON.stringify(user),

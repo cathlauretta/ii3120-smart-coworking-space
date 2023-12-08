@@ -6,7 +6,7 @@ import { DbResult, Payload, Tables } from '../lib/databasetypes';
 export const createFNB = async (fnbPayload: Payload<'fnb'>) => {
   const supabase = createClient(cookies());
   const query = supabase
-    .from('fnb')
+    .from('fnb_data')
     .insert([{ ...fnbPayload }])
     .select()
     .single();
@@ -20,7 +20,7 @@ export const updateFNB = async (
 ) => {
   const supabase = createClient(cookies());
   const query = supabase
-    .from('fnb')
+    .from('fnb_data')
     .update({ ...fnbPayload })
     .eq('id', id as string)
     .select();
@@ -31,7 +31,7 @@ export const updateFNB = async (
 export const deleteFNB = async (id: string | null | undefined) => {
   const supabase = createClient(cookies());
   const { error } = await supabase
-    .from('fnb')
+    .from('fnb_data')
     .delete()
     .eq('id', id as string);
   return { error };
@@ -40,7 +40,7 @@ export const deleteFNB = async (id: string | null | undefined) => {
 export const getFNB = async (id: string | null | undefined) => {
   const supabase = createClient(cookies());
   const query = supabase
-    .from('fnb')
+    .from('fnb_data')
     .select('*')
     .eq('id', id as string)
     .single();
@@ -51,7 +51,7 @@ export const getFNB = async (id: string | null | undefined) => {
 export const getFNBs = async () => {
   const supabase = createClient(cookies());
   const query = supabase
-    .from('fnb')
+    .from('fnb_data')
     .select(
       '*'
     );

@@ -1,6 +1,8 @@
 import { getCurrentUser } from '@/services/auth';
-import { getUserById, getUserByEmail } from '@/services/user';
 import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@supabase/supabase-js';
+import { cookies } from 'next/headers';
+import { getUserById } from '@/services/user';
 
 
 export async function GET(request: NextRequest) {
@@ -17,12 +19,11 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  // execute get user with id from authUser
-  console.log("Getting user by email")
-  const { data, error } = await getUserById(authUser.data.user?.id);
-  console.log(data);
+  // getting user id from supabase
+  console.log('Getting user by id')
+  const { data, error } = await getUserById(authUser.data?.user?.id);
   // Check for supabase errors
-  if (error) {
+  if (error || !data) {
     return NextResponse.json(
       {
         status: 'error',
