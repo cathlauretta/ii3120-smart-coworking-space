@@ -20,28 +20,7 @@ import {
     MdClose
 } from "react-icons/md"
 import { Brand } from "./brand"
-
-async function getSelf() {
-    try {
-        const apiUrl = `/api/auth/self`;
-        const response = await fetch(apiUrl, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        
-        const data = await response.json();
-        console.log(data);
-        return data;
-    } catch (error) {
-        console.log(error);
-    }
-}
+import { AuthContext } from '../services/AuthProvider';
 
 export default function WithSubnavigation() {
     const { isOpen, onToggle } = useDisclosure()

@@ -226,3 +226,12 @@ export interface Database {
 
 };
 
+export interface UserPayload {
+  registered_at?: string;
+  email?: string;
+  full_name?: string;
+  id?: string;
+  phone_number?: string;
+  current_membership_id?: string;
+}
+
