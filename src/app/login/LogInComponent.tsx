@@ -1,5 +1,5 @@
 "use client";
-import { BasicInput } from "@/components/Input";
+import { BasicInput } from "@/components/InputComponent";
 import { Password } from "@/components/Password";
 import { Button, Checkbox, Flex, Link, Text } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
