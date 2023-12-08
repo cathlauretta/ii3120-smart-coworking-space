@@ -7,7 +7,7 @@ import exp from 'constants';
 export const createRoom = async (roomPayload: Payload<'rooms'>) => {
   const supabase = createClient(cookies());
   const query = supabase
-    .from('room')
+    .from('room_data')
     .insert([{ ...roomPayload }])
     .select()
     .single();
@@ -21,7 +21,7 @@ export const updateRoom = async (
 ) => {
   const supabase = createClient(cookies());
   const query = supabase
-    .from('room')
+    .from('room_data')
     .update({ ...roomPayload })
     .eq('id', id as string)
     .select();
@@ -32,7 +32,7 @@ export const updateRoom = async (
 export const deleteRoom = async (id: string | null | undefined) => {
   const supabase = createClient(cookies());
   const { error } = await supabase
-    .from('room')
+    .from('room_data')
     .delete()
     .eq('id', id as string);
   return { error };
@@ -41,7 +41,7 @@ export const deleteRoom = async (id: string | null | undefined) => {
 export const getRoom = async (id: string | null | undefined) => {
   const supabase = createClient(cookies());
   const query = supabase
-    .from('room')
+    .from('room_data')
     .select('id, workspace_id, name, facilities, capacity, created_at, occupancy')
     .eq('id', id as string)
     .single();
@@ -52,7 +52,7 @@ export const getRoom = async (id: string | null | undefined) => {
 export const getRooms = async () => {
     const supabase = createClient(cookies());
     const query = supabase
-        .from('room')
+        .from('room_data')
         .select(
         'id, workspace_id, name, facilities, capacity, created_at, occupancy'
         );

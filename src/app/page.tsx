@@ -28,9 +28,16 @@ async function getSelf() {
 }
 
 export default function Home() {
-  (async () => {
-    const status = await getSelf();
-  })();
+  const [status, setStatus] = useState('loading');
+  
+  useEffect(() => {
+    async function checkLogin() {
+      const data = await getSelf();
+      setStatus(data.status);
+    }
+    checkLogin();
+  }, []);
+
   return (
     <Box>
       {status === 'success' ? ( <CustomerHome /> ) : ( <GuestHome />
