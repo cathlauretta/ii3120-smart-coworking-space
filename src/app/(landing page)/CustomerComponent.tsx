@@ -21,7 +21,7 @@ export const locationCustom = createIcon({
 
 async function getEvents() {
   try {
-    const res = await fetch('http://localhost:3000/api/event')
+    const res = await fetch('/api/event')
     const data = await res.json()
     return data['data']
   } catch (err) {
@@ -31,7 +31,7 @@ async function getEvents() {
 
 async function getFoods() {
   try {
-    const res = await fetch('http://localhost:3000/api/fnb')
+    const res = await fetch('/api/fnb')
     const data = await res.json()
     return data['data']
   } catch (err) {
@@ -75,7 +75,7 @@ function pesanHandler(){
 }
 
 function getSelf() {
-  return fetch('http://localhost:3000/api/auth/self', {
+  return fetch('/api/auth/self', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'

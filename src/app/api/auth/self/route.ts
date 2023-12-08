@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(
       {
         status: 'error',
-        message: error.message
+        message: 'Error fetching user data'
       },
       { status: 400 }
     );
