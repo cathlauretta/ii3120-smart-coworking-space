@@ -11,24 +11,26 @@ export interface AccountCredentials {
 // Registers a new user in auth.users; Then, a new duplicate row in public.users is created using a trigger
 export const registerAndCreateAccount = async (
   accountPayload: Payload<'users'>,
-  password: string
-  // requestUrl: URL
+  password: string,
+  requestUrl: URL
 ) => {
   const supabase = createClient(cookies());
   const query = supabase.auth.signUp({
     email: accountPayload.email as string,
     password,
     options: {
-      emailRedirectTo: `${window.location.origin}/api/auth/callback`,
+      emailRedirectTo: `${requestUrl}/api/auth/callback`,
       data: {
         username: accountPayload.email,
         full_name: accountPayload.full_name,
-        phone_number: accountPayload.phone_number,
-
+        phone_number: "0080081000",
       }
     }
   });
   const { data, error } = await query;
+
+  // console.log("ini data", data, "ini error", error);
+
   return { data, error };
 };
 

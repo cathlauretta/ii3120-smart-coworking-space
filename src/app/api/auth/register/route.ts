@@ -16,7 +16,6 @@ export async function POST(request: NextRequest) {
   if (
     !accountPayload.email ||
     !accountPayload.full_name ||
-    !accountPayload.phone_number || 
     !password
   ) {
     return NextResponse.json(
@@ -28,12 +27,16 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  console.log(accountPayload)
+  
   // execute register
   const { data, error } = await registerAndCreateAccount(
     accountPayload,
     password,
-    // requestUrl
+    requestUrl
   );
+
+  console.log(data)
 
   // Check for supabase errors
   if (error) {

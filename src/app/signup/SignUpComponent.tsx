@@ -1,22 +1,51 @@
 "use client";
 import React, { useState } from "react";
-import {
-    Flex,
-    Button,
-    Text,
-    Divider,
-    AbsoluteCenter,
-} from "@chakra-ui/react";
+import { Flex, Button, Text, Divider, AbsoluteCenter } from "@chakra-ui/react";
 import { Password } from "@/components/Password";
 import { FaEnvelope, FaEdit, FaGoogle, FaFacebook } from "react-icons/fa";
 import { BasicInput } from "@/components/Input";
-import { registerAndCreateAccount } from "@/services/auth";
-import { register } from "@/lib/functions/register";
+import { useRouter } from "next/navigation";
 
 const desc =
     "Bergabung menjadi bagian dari Centrice Member!\nPilih metode Sign Up:";
 
 export function SignupContent() {
+    // useEffect(() => {
+    //   first
+
+    //   return () => {
+    //     second
+    //   }
+    // }, [third])
+
+    const router = useRouter();
+
+    interface user {
+        email: string;
+        full_name: string;
+        password: string;
+    }
+
+    const handleRegister = async ( user : user ) => {
+        try {
+            const res = await fetch('/api/auth/register', {
+                method: 'POST',
+                body: JSON.stringify(user),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const data = await res.json();
+            if (res.ok) {
+                router.push('/login');
+            } else {
+                alert(data.error);
+            }
+        } catch (error) {
+            console.error('Error: ', error);
+        }
+    };
+
     const DEFAULT_TEXT_COLOR = "#1A202C";
 
     const [fName, setFName] = useState<string>("default");
@@ -107,8 +136,18 @@ export function SignupContent() {
 
                 {/* Registration Part */}
                 <Flex flexDir="column" gap="10px" w="100%">
-                    <BasicInput placeholder="Full Name" type="text" icons={<FaEdit />}  getValue={handleFName}/>
-                    <BasicInput placeholder="Email" type="email" icons={<FaEnvelope />}  getValue={handleEmail}/>
+                    <BasicInput
+                        placeholder="Full Name"
+                        type="text"
+                        icons={<FaEdit />}
+                        getValue={handleFName}
+                    />
+                    <BasicInput
+                        placeholder="Email"
+                        type="email"
+                        icons={<FaEnvelope />}
+                        getValue={handleEmail}
+                    />
                     <Password getPass={handlePass} />
                 </Flex>
             </Flex>
@@ -120,7 +159,11 @@ export function SignupContent() {
                 textColor="white"
                 _hover={{ bg: "purple.400" }}
                 onClick={() => {
-                    register(email, fName, pass)
+                    handleRegister({
+                        email: email,
+                        full_name: fName,
+                        password: pass,
+                    });
                 }}>
                 Sign Up
             </Button>
