@@ -1,24 +1,77 @@
-
-import {
-    Flex,
-    Button,
-    InputGroup,
-    Input,
-    InputLeftElement,
-    Text,
-    Divider,
-    AbsoluteCenter,
-} from "@chakra-ui/react";
+"use client";
+import React, { useState } from "react";
+import { Flex, Button, Text, Divider, AbsoluteCenter } from "@chakra-ui/react";
 import { Password } from "@/components/Password";
 import { FaEnvelope, FaEdit, FaGoogle, FaFacebook } from "react-icons/fa";
+import { BasicInput } from "@/components/Input";
+import { useRouter } from "next/navigation";
 
 const desc =
     "Bergabung menjadi bagian dari Centrice Member!\nPilih metode Sign Up:";
-    
-export default function SignUpForm() {
+
+export function SignupContent() {
+    // useEffect(() => {
+    //   first
+
+    //   return () => {
+    //     second
+    //   }
+    // }, [third])
+
+    const router = useRouter();
+
+    interface user {
+        email: string;
+        full_name: string;
+        password: string;
+    }
+
+    const handleRegister = async ( user : user ) => {
+        console.log("ppppp")
+        try {
+            console.log('masuk')
+            console.log(user);
+            console.log("hai")
+            const res = await fetch('/api/auth/register', {
+                method: 'POST',
+                body: JSON.stringify(user),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const data = await res.json();
+            if (res.ok) {
+                router.push('/login');
+            } else {
+                alert(data.error);
+            }
+        } catch (error) {
+            console.error('Error: ', error);
+        }
+    };
+
     const DEFAULT_TEXT_COLOR = "#1A202C";
- 
+
+    const [fName, setFName] = useState<string>("default");
+    const handleFName = (item: string) => {
+        setFName(item);
+        // console.log("Changed: " + fName);
+    };
+
+    const [email, setEmail] = useState<string>("default");
+    const handleEmail = (item: string) => {
+        setEmail(item);
+        // console.log("Changed: " + email);
+    };
+
+    const [pass, setPass] = useState<string>("default");
+    const handlePass = (item: string) => {
+        setPass(item);
+        // console.log("Changed: " + pass);
+    };
+
     return (
+        // { /* Sign Up */ }
         <Flex
             flexDir={"column"}
             justifyContent={"center"}
@@ -88,36 +141,36 @@ export default function SignUpForm() {
 
                 {/* Email */}
                 <Flex flexDir="column" gap="10px" w="100%">
-                    <InputGroup>
-                        <InputLeftElement
-                            color="gray.400"
-                            pointerEvents="none">
-                            <FaEdit />
-                        </InputLeftElement>
-                        <Input
-                            type="text"
-                            placeholder="Full Name"
-                            pl="40px"
-                        />
-                    </InputGroup>
-                    <InputGroup>
-                        <InputLeftElement
-                            color="gray.400"
-                            pointerEvents="none">
-                            <FaEnvelope />
-                        </InputLeftElement>
-                        <Input
-                            type="email"
-                            placeholder="Email"
-                            pl="40px"
-                        />
-                    </InputGroup>
-                    <Password />
+                    <BasicInput
+                        placeholder="Full Name"
+                        type="text"
+                        icons={<FaEdit />}
+                        getValue={handleFName}
+                    />
+                    <BasicInput
+                        placeholder="Email"
+                        type="email"
+                        icons={<FaEnvelope />}
+                        getValue={handleEmail}
+                    />
+                    <Password getPass={handlePass} />
                 </Flex>
             </Flex>
 
             {/* Sign Up Button */}
-            <Button w="100%" bg="purple.500" textColor="white">
+            <Button
+                w="100%"
+                bg="purple.500"
+                textColor="white"
+                _hover={{ bg: "purple.400" }}
+                onClick={() => {
+                    handleRegister({
+                        email: email,
+                        full_name: fName,
+                        password: pass,
+                    });
+                    console.log("Clicked")
+                }}>
                 Sign Up
             </Button>
         </Flex>
