@@ -12,6 +12,7 @@ import {
     PopoverTrigger,
     useColorModeValue,
     useDisclosure,
+    Avatar, Menu, MenuButton, MenuList, MenuItem, MenuDivider
 } from "@chakra-ui/react"
 import {
     GiHamburgerMenu,
@@ -20,34 +21,18 @@ import {
     MdClose
 } from "react-icons/md"
 import { Brand } from "./brand"
+import { AuthContext } from '../services/AuthProvider';
+import React from "react"
+import { useRouter } from "next/navigation"
 
-async function getSelf() {
-    try {
-        const apiUrl = `/api/auth/self`;
-        const response = await fetch(apiUrl, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
 
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        
-        const data = await response.json();
-        console.log(data);
-        return data;
-    } catch (error) {
-        console.log(error);
-    }
-}
+
 
 export default function WithSubnavigation() {
     const { isOpen, onToggle } = useDisclosure()
 
     return (
-        <Box>
+        <Box position='fixed' zIndex="20" width="100%">
             <Flex
                 bg={useColorModeValue("white", "gray.800")}
                 color={useColorModeValue("gray.600", "white")}
@@ -75,14 +60,55 @@ export default function WithSubnavigation() {
                 </Flex>
 
                 <Flex justify={{ base: "center", md: "start" }} minW={160}>
-                    <Brand/>
+                    <Brand />
                 </Flex>
-                <Flex  w='100%'></Flex>
+                <Flex w='100%'></Flex>
                 <Flex>
-                    <Flex display={{ base: "none", md: "flex" }} px={{ base: 4, md: 20, lg: 32 }} align={"center"}>
-                        <DesktopNav />
-                    </Flex>
+                    <DesktopNav />
 
+
+                </Flex>
+            </Flex>
+
+            <Collapse in={isOpen} animateOpacity>
+                <MobileNav />
+            </Collapse>
+        </Box>
+    )
+}
+
+const DesktopNav = () => {
+    const { push } = useRouter();
+    const user = React.useContext(AuthContext)?.user;
+    const linkColor = useColorModeValue("gray.600", "gray.200");
+    const linkHoverColor = useColorModeValue("gray.800", "white");
+    const popoverContentBgColor = useColorModeValue("white", "gray.800");
+
+    return (
+        <Stack direction={"row"} spacing={4}>
+            {!user?.id && (
+                <Flex w='100%' className='gap-8 w=full' display={{ base: "none", md: "flex" }} align={"center"}>
+                    {NAV_ITEMS.map((navItem) => (
+                        <Box key={navItem.label}>
+                            <Popover trigger={"hover"} placement={"bottom-start"}>
+                                <PopoverTrigger>
+                                    <Link
+                                        p={2}
+                                        href={navItem.href ?? "#"}
+                                        fontSize={"sm"}
+                                        fontWeight={500}
+                                        color={linkColor}
+                                        _hover={{
+                                            textDecoration: "none",
+                                            color: linkHoverColor,
+                                        }}
+                                    >
+                                        {navItem.label}
+                                    </Link>
+                                </PopoverTrigger>
+                            </Popover>
+                        </Box>
+                    ))}
                     <Button
                         as={"a"}
                         display={{ base: "none", md: "inline-flex" }}
@@ -97,48 +123,62 @@ export default function WithSubnavigation() {
                     >
                         Log In
                     </Button>
-
                 </Flex>
-            </Flex>
+            )}
 
-            <Collapse in={isOpen} animateOpacity>
-                <MobileNav />
-            </Collapse>
-        </Box>
-    )
-}
+            {user?.id && (
+                <Flex w='100%' className='gap-8 w=full' display={{ base: "none", md: "flex" }} align={"center"}>
+                    {NAV_ITEMS_CUST.map((navItem) => (
+                        <Box key={navItem.label}>
+                            <Popover trigger={"hover"} placement={"bottom-start"}>
+                                <PopoverTrigger>
+                                    <Link
+                                        p={2}
+                                        href={navItem.href ?? "#"}
+                                        fontSize={"sm"}
+                                        fontWeight={500}
+                                        color={linkColor}
+                                        _hover={{
+                                            textDecoration: "none",
+                                            color: linkHoverColor,
+                                        }}
+                                    >
+                                        {navItem.label}
+                                    </Link>
+                                </PopoverTrigger>
+                            </Popover>
+                        </Box>
+                    ))}
+                    <Menu>
+                        <MenuButton
+                            px={4}
+                            py={2}
+                            transition='all 0.2s'
+                        >
+                            <Avatar name='Naura Valda' src='https://bit.ly/broken-link'/>
+                        </MenuButton>
+                        <MenuList>
+                            <MenuItem>Naura Valda<br/>nauravalda@gmail.com</MenuItem>
+                            <MenuDivider />
+                            <MenuItem
+                            onClick={() => {
+                                fetch('/api/auth/logout', {
+                                  method: 'POST'
+                                }).then(() => {
+                                  push('/');
+                                });
+                              }}
+                            >Log out</MenuItem>
+                        </MenuList>
+                    </Menu>
+                    
+                </Flex>
+            )}
 
-const DesktopNav = () => {
-    const linkColor = useColorModeValue("gray.600", "gray.200")
-    const linkHoverColor = useColorModeValue("gray.800", "white")
-    const popoverContentBgColor = useColorModeValue("white", "gray.800")
-
-    return (
-        <Stack direction={"row"} spacing={4}>
-            {NAV_ITEMS.map((navItem) => (
-                <Box key={navItem.label}>
-                    <Popover trigger={"hover"} placement={"bottom-start"}>
-                        <PopoverTrigger>
-                            <Link
-                                p={2}
-                                href={navItem.href ?? "#"}
-                                fontSize={"sm"}
-                                fontWeight={500}
-                                color={linkColor}
-                                _hover={{
-                                    textDecoration: "none",
-                                    color: linkHoverColor,
-                                }}
-                            >
-                                {navItem.label}
-                            </Link>
-                        </PopoverTrigger>
-                    </Popover>
-                </Box>
-            ))}
         </Stack>
     )
 }
+
 
 const MobileNav = () => {
     return (
@@ -202,6 +242,17 @@ const NAV_ITEMS: Array<NavItem> = [
     },
     {
         label: "Locations",
+        href: "#",
+    },
+]
+
+const NAV_ITEMS_CUST: Array<NavItem> = [
+    {
+        label: "Workspace",
+        href: "#",
+    },
+    {
+        label: "Community",
         href: "#",
     },
 ]

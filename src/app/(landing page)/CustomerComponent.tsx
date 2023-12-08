@@ -6,6 +6,8 @@ import { Icon } from "@chakra-ui/react";
 import { Heading, Text, Stack, Image } from '@chakra-ui/react';
 import { createIcon, PhoneIcon, TimeIcon } from '@chakra-ui/icons';
 import MemberCard from '@/components/membercard'
+import SearchBar from '@/components/searchbar';
+import { Button, ButtonGroup } from '@chakra-ui/react'
 
 export const locationCustom = createIcon({
   displayName: "locationCustom",
@@ -32,7 +34,7 @@ async function getFoods() {
     return data['data']
   } catch (err) {
     console.log(err)
-  
+
   }
 }
 
@@ -46,8 +48,41 @@ function dateToText(date: string | null) {
 }
 
 
+function totalPrice(pesanan: any) {
+  let total = 0
+  pesanan.forEach((item: any) => {
+    total += item.price * item.quantity
+  })
+  return total
+}
+
+function pesanHandler(){
+  // var button = document.getElementById("plus");
+  // console.log('msk')
+  // button?.classList.add('cursor-not-allowed');
+  // button?.classList.add('opacity-50');
+  // var button = document.getElementById("min");
+  // button?.classList.add('cursor-not-allowed');
+  // button?.classList.add('opacity-50');
+  var buttons = document.getElementsByClassName("plus");
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].classList.add('cursor-not-allowed');
+    buttons[i].classList.add('opacity-50');
+  }
+
+}
 
 export default function CustomerHome() {
+  const [pesanCLicked, setPesanClicked] = useState(false)
+  const [searchVal, setSearchVal] = useState('');
+  const [pesanan, setPesanan] = useState<
+    {
+      id: string;
+      name: string | null;
+      price: number | null;
+      quantity: number;
+    }[]>([]);
+
   const [data, setData] = useState<
     {
       id: string;
@@ -64,29 +99,52 @@ export default function CustomerHome() {
   >([]);
 
   const [foods, setFoods] = useState<
-  {
-    id: string;
-    name: string | null;
-    desc: string | null;
-    price: number | null;
-    created_at: string | null;
-  }[]
+    {
+      id: string;
+      name: string | null;
+      desc: string | null;
+      price: number | null;
+      created_at: string | null;
+      quantity: number;
+    }[]
   >([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getEvents()
-      setData(res)
-      const res2 = await getFoods()
-      setFoods(res2)
-    }
-    fetchData()
-  }, [])
+      const res = await getEvents();
+      setData(res);
+      const res2 = await getFoods();
+
+      const updatedFoods = res2.map((food: {
+        id: string;
+        name: string | null;
+        desc: string | null;
+        price: number | null;
+        created_at: string | null;
+        quantity: number;
+      }) => ({
+        ...food,
+        quantity: 0
+      }));
+
+      setFoods(updatedFoods);
+
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div>
       <div className='px-[150px] py-[100px] gap-[50px] bg-[#FBB6CE] flex gap-2'>
-        <div className='w-6/12'>
+      <div className='absolute inset-0 -z-2'>
+          <Image
+            src="/assets/image/landing-background.png"
+            alt="Picture of the author"
+            objectFit="cover"
+          />
+        </div>
+        <div className='w-6/12 z-10'>
           <div className="rounded-t-md w-full h-20 px-7 py-4 bg-white shadow">
             <Heading className="text-gray-900 text-4xl font-extrabold">Workspace</Heading>
           </div>
@@ -113,48 +171,155 @@ export default function CustomerHome() {
 
 
 
-        <div className='w-5/12'>
+        <div className='w-5/12 z-10'>
           <div className="rounded-t-md w-full h-20 px-7 py-4 bg-white shadow">
             <Heading className="text-gray-900 text-4xl font-extrabold">Pesan Makanan</Heading>
           </div>
-          <div className="w-full h-11/12 px-7 py-10 bg-slate-100 shadow flex-col justify-start items-center gap-7 inline-flex">
-            <div className='bg-red'>
-              <Card
-                direction={{ base: 'column', sm: 'row' }}
-                overflow='hidden'
-                variant='outline'
-                maxW='sm'
-                maxH={{ base: '100%', sm: '90px' }}
-                className='h-24 w-12/12'
-              >
-                <Image
-                  objectFit='cover'
-                  maxW={{ base: '100%', sm: '120px' }}
-                  src='https://via.placeholder.com/142x75'
-                  alt='Caffe Latte'
-                  // height={{ base: '75px', sm: '1px' }}
-                />
+          <div className="w-full h-11/12 px-7 pt-5 bg-slate-100 shadow flex-col justify-start items-center gap-4 inline-flex">
+            <SearchBar parentCallback={(val: string) => setSearchVal(val)} />
+            <div className='h-[420px] overflow-y-scroll no-scrollbar'>
+              {foods ? foods.filter((val) => {
+                if (searchVal === '') {
+                  return val;
+                } else if (val.name && val.name.toLowerCase().includes(searchVal.toLowerCase())) { return val }
+              }).map((food) => (
+                <Card
+                  direction={{ base: 'column', sm: 'row' }}
+                  overflow='hidden'
+                  variant='outline'
+                  maxW='sm'
+                  maxH={{ base: '100%', sm: '90px' }}
+                  className='h-20 w-12/12 my-2'
+                >
+                  <Image
+                    objectFit='cover'
+                    maxW={{ base: '100%', sm: '120px' }}
+                    src='https://via.placeholder.com/142x75'
+                    alt='Caffe Latte'
+                  />
 
-                <Stack>
-                  <CardBody className='w-48'>
-                    <Heading size='md'>Nasi Goreng</Heading>
-                    <Text py='2'>
-                      Rp10.000,00
-                    </Text>
-                  </CardBody>
-                </Stack>
-                <div className="w-9 h-full px-3 bg-slate-50 rounded-tr rounded-br border border-slate-200 justify-center items-center gap-4 inline-flex">
-                  <div className="grow shrink basis-0 text-justify text-gray-900 text-lg font-bold leading-7">0</div>
-                </div>
-                <div className='flex-column h-full'>
-                  <div className="w-9 h-1/2 px-3 bg-slate-50 rounded-tr rounded-br border border-slate-200 justify-center items-center gap-4">
-                    <div className="grow shrink basis-0 text-justify text-gray-900 text-lg font-bold leading-7">+</div>
+                  <Stack>
+                    <CardBody className='w-48'>
+                      <Heading size='sm'>{food.name}</Heading>
+                      <Text py='2'>
+                        Rp {(food.price)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+                      </Text>
+                    </CardBody>
+                  </Stack>
+                  <div className="w-9 h-full px-3 bg-slate-50 rounded-tr rounded-br border border-slate-200 justify-center items-center gap-4 inline-flex">
+                    <div className="grow shrink basis-0 text-justify text-gray-900 text-lg font-bold leading-7">{food.quantity}</div>
                   </div>
-                  <div className="w-9 h-full px-3 bg-slate-50 rounded-tr rounded-br border border-slate-200 justify-center items-center gap-4">
-                    <div className="grow shrink basis-0 text-justify text-gray-900 text-lg font-bold leading-7">-</div>
+                  <div className='flex-column h-full'>
+                    <ButtonGroup flexDirection={'column'} variant='outline' spacing='0'>
+                      <Button onClick={
+                        () => {
+                          setFoods((prev) => {
+                            const newFoods = [...prev];
+                            const index = newFoods.findIndex((item) => item.id === food.id);
+
+                            if (index === -1) {
+                              return newFoods;
+                            } else {
+                              const updatedQuantity = newFoods[index].quantity + 1; // Tambahkan 1 ke quantity
+                              newFoods[index] = { ...newFoods[index], quantity: updatedQuantity }; // Update nilai quantity
+                            }
+
+                            return newFoods;
+                            console.log("p bg")
+                          });
+                          console.log("p bg2")
+                          setPesanan((prev) => {
+                            const newPesanan = [...prev]
+                            const index = newPesanan.findIndex((item) => item.id === food.id)
+                            if (index === -1) {
+                              newPesanan.push({
+                                id: food.id,
+                                name: food.name,
+                                price: food.price,
+                                quantity: 1
+                              })
+                            } else {
+                              const updatedQuantity = newPesanan[index].quantity + 1; // Tambahkan 1 ke quantity
+                              newPesanan[index] = { ...newPesanan[index], quantity: updatedQuantity }; // Update nilai quantity
+                              console.log("hhhpesanan")
+                              console.log(newPesanan)
+
+                            }
+                            return newPesanan
+                          })
+                        }
+                      }
+                        className='bg-slate-50 plus' id='plus'>+</Button>
+                      <Button
+                        onClick={
+                          () => {
+                            setFoods((prev) => {
+                              const newFoods = [...prev];
+                              const index = newFoods.findIndex((item) => item.id === food.id);
+
+                              if (index === -1) {
+                                return newFoods;
+                              } else {
+                                if (newFoods[index].quantity > 0) {
+                                const updatedQuantity = newFoods[index].quantity - 1; // Tambahkan 1 ke quantity
+                                newFoods[index] = { ...newFoods[index], quantity: updatedQuantity }; // Update nilai quantity
+                              }}
+
+                              return newFoods;
+                            });
+                            setPesanan((prev) => {
+                              const newPesanan = [...prev]
+                              const index = newPesanan.findIndex((item) => item.id === food.id)
+                              if (index === -1) {
+                                return newPesanan;
+                              } else {
+                                if (newPesanan[index].quantity === 1) {
+                                  newPesanan.splice(index, 1);
+                                } else {
+                                  const updatedQuantity = newPesanan[index].quantity - 1; // Tambahkan 1 ke quantity
+                                  newPesanan[index] = { ...newPesanan[index], quantity: updatedQuantity }; // Update nilai quantity
+                                }
+                                console.log("hhhpesanan")
+                                console.log(newPesanan)
+
+                              }
+                              return newPesanan
+                            })
+                          }
+                        }
+                        className='bg-slate-50 plus' id='min'>-</Button>
+                    </ButtonGroup>
+
+                  </div>
+                </Card>)
+              ) : <div>loading...</div>}
+            </div>
+          </div>
+          <div className="w-full rounded-b-md h-54 px-7 py-5 bg-white shadow flex-col justify-start items-start gap-7 inline-flex">
+            {!pesanCLicked ? 
+            <Button colorScheme='purple' variant='solid' 
+            className="self-stretch bg-violet-500 justify-center items-center inline-flex"
+            isDisabled={pesanan.length==0}
+            onClick={() => {pesanHandler(); setPesanClicked(true)}}
+            >Pesan</Button> : (<div className='text-slate-500 text-base font-semibold pt-2'>Pesanan sedang dibuat...</div>)}
+            <div className="self-stretch justify-start items-start gap-7 inline-flex">
+              <div className="grow shrink basis-0 flex-col justify-start items-start inline-flex">
+                <div className="self-stretch h-fit flex-col justify-start items-start flex">
+                  <div className="self-stretch text-gray-900 text-xl font-bold ">Pesananmu</div>
+                  <div className="self-stretch text-slate-600 text-sm font-semibold leading-7 flex flex-wrap">
+                    {pesanan ? (
+                      
+                      pesanan.map((food, index) => (
+                      <div key={index}>
+                        {index > 0 && ', '} {food.quantity} {food.name}
+                      </div>
+                    ))) : <div>loading...</div>}
                   </div>
                 </div>
-              </Card>
+              </div>
+              <div className="flex-col justify-center items-end inline-flex">
+                <div className="text-violet-900 text-xl font-bold">Rp {totalPrice(pesanan).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -176,7 +341,7 @@ export default function CustomerHome() {
                   <Heading size='md'>{event.name}</Heading>
                   <Text className='text-slate-600 text-lg font-semibold leading-7'>{event.workspace_name}
                   </Text>
-                  <Text className='mb-4 leading-0'>
+                  <Text className='mb-4 leading-0 break-word text-justify px-0 py-1'>
                     {event.desc}
                   </Text>
                 </Stack>
@@ -184,7 +349,7 @@ export default function CustomerHome() {
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
                     <path d="M18 8C18 4.69 15.31 2 12 2C8.69 2 6 4.69 6 8C6 12.5 12 19 12 19C12 19 18 12.5 18 8ZM10 8C10 6.9 10.9 6 12 6C13.1 6 14 6.9 14 8C14 8.53043 13.7893 9.03914 13.4142 9.41421C13.0391 9.78929 12.5304 10 12 10C11.4696 10 10.9609 9.78929 10.5858 9.41421C10.2107 9.03914 10 8.53043 10 8ZM5 20V22H19V20H5Z" fill="black" />
                   </svg>
-                  <Text className='w-80 text-gray-900'>{event.location}</Text>
+                  <Text className='w-80 text-gray-900 break-word text-justify px-0 py-0'>{event.location}</Text>
                 </div>
                 <div className='flex gap-3 my-1'>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -201,7 +366,10 @@ export default function CustomerHome() {
               </CardBody>
 
             </Card>)) : <div>loading...</div>}
+
         </div>
+
+
       </div>
 
 
