@@ -32,7 +32,7 @@ CENTRICE is an automated system for coworking space services, such as registrati
     ```bash
     npm run dev
     ```
-5. Open the application on ``localhost:3000`` or access the program from this [link]()
+5. Open the application on ``localhost:3000`` or access the program from this link [Smart Centrice](https://smart-centrice.vercel.app/)
 
 ## Program Usage Guide
 <img src='public/doc/GuestLanding.jpg'>
