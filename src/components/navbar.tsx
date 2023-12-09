@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import {
     Box,
     Flex,
@@ -24,29 +24,6 @@ import { Brand } from "./brand"
 import React, { useState } from "react"
 import { useRouter } from "next/navigation"
 
-
-
-async function getSelf() {
-    try {
-        const apiUrl = `/api/auth/self`;
-        const response = await fetch(apiUrl, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.log(error);
-    }
-}
-
 type Data = {
     status: string;
     user: User;
@@ -62,32 +39,16 @@ type User = {
 
 interface NavbarProps {
     type: 'customer' | 'guest';
+    user?: User;
 }
 
 
-export default function WithSubnavigation({ type }: NavbarProps) {
+export default function WithSubnavigation({ type, user }: NavbarProps) {
     const { isOpen, onToggle } = useDisclosure()
-    // const [status, setStatus] = useState('error');
-    const [user, setUser] = useState<User>({
-        id: '',
-        email: '',
-        full_name: 'O',
-        phone_number: '',
-        current_membership_id: ''
-    });
     const linkColor = useColorModeValue("gray.600", "gray.200");
     const linkHoverColor = useColorModeValue("gray.800", "white");
     
     const router = useRouter();
-
-    React.useEffect(() => {
-        async function checkLogin() {
-            const data = await getSelf();
-            // setStatus(data?.status);
-            setUser(data?.user);
-        }
-        checkLogin();
-    }, []);
 
     return (
         <Box position='fixed' zIndex="20" width="100%">

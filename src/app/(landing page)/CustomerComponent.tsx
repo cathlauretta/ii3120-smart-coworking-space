@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import React, { use, useEffect, useState } from 'react'
 import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
@@ -97,8 +97,17 @@ function cardID(str: string | null) {
   return cardNumberUppercase;
 }
 
+interface CustomerInterface {
+  user: {
+    id: string;
+    email: string;
+    full_name: string;
+    phone_number: string;
+    current_membership_id: string;
+  };
+}
 
-export default function CustomerHome() {
+export default function CustomerHome({ user } : CustomerInterface) {
   const [pesanCLicked, setPesanClicked] = useState(false)
   const [searchVal, setSearchVal] = useState('');
   const [pesanan, setPesanan] = useState<
@@ -137,29 +146,12 @@ export default function CustomerHome() {
     }[]
   >([]);
 
-  const [user, setUser] = useState<{
-    id: string;
-    email: string;
-    full_name: string;
-    phone_number: string;
-    current_membership_id: string;
-  }>({
-    id: 'XXXXXXX',
-    email: '',
-    full_name: 'XXXXXXXX',
-    phone_number: '',
-    current_membership_id: ''
-  });
-
   const [showCard, setShowCard] = useState(true);
 
   const { SVG } = useQRCode();
 
   useEffect(() => {
     const fetchData = async () => {
-      const res1 = await getSelf();
-      setUser(res1.user);
-      console.log(res1.user)
 
       const res2 = await getEvents();
       setData(res2);
@@ -186,7 +178,6 @@ export default function CustomerHome() {
 
   return (
     <div>
-      <WithSubnavigation type='customer'/> 
       <div className='px-[150px] py-[100px] gap-[50px] bg-[#FBB6CE] flex gap-2'>
       <div className='absolute inset-0 -z-2'>
           <Image
