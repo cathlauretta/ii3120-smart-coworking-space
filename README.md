@@ -103,6 +103,17 @@ create table
     constraint event_pkey primary key (id),
     constraint event_workspace_id_fkey foreign key (workspace_id) references workspace (id)
   ) tablespace pg_default;
+
+create table
+  public.fnb (
+    id uuid not null default gen_random_uuid (),
+    name text null,
+    "desc" text null,
+    price integer null,
+    created_at timestamp with time zone not null default now(),
+    url_img text null,
+    constraint fnb_pkey primary key (id)
+  ) tablespace pg_default;
 ```
 
 ## Progress Report
