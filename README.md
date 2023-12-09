@@ -41,7 +41,7 @@ CENTRICE adalah layanan pendaftaran coworking space yang dibangun dengan Next.js
 ## Database Schema
 Below are the database schema used in the program. There are five tables: user, membership, workspace, room, and event that stores different attributes/informations and some refer to another attribute in another table. 
 
-<img src='public/doc/Screenshot 2023-12-08 145338.png'
+<img src='public/doc/schema.png'>
 
 ## Progress Report
 | Implementation | Done |
