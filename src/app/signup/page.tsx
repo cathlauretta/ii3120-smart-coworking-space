@@ -30,6 +30,15 @@ export default function SignupPage() {
             <Flex w="50%" position={"relative"} bgColor="#FBB6CE">
                 <Flex
                     position={"absolute"}
+                    overflow={"hidden"}
+                    w="100%"
+                    flexDir={"row"}
+                    justifyContent={"right"}
+                >
+                    <Image src="assets/image/Playing-table-tennis.png" />
+                </Flex>
+                <Flex
+                    position={"absolute"}
                     left={0}
                     bottom={0}
                     overflow={"hidden"}

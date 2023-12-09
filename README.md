@@ -1,8 +1,7 @@
-<img src='public/doc/Header.png'>
-
 ## II3120 - Information System Technology Services
+<img src='public/doc/Header.png'>
 <center>
-CENTRICE adalah layanan pendaftaran coworking space yang dibangun dengan Next.js.
+CENTRICE is an automated system for coworking space services, such as registration and ordering, to make the process become more simple and efficient.
 </center>
 
 ## Table of Content
@@ -33,13 +32,20 @@ CENTRICE adalah layanan pendaftaran coworking space yang dibangun dengan Next.js
     ```bash
     npm run dev
     ```
-5. Open the application on ``localhost:3000`` or access the program from this [link](www.google.com)
+5. Open the application on ``localhost:3000`` or access the program from this [link]()
 
 ## Program Usage Guide
+<img src='public/doc/GuestLanding.jpg'>
+This is the landing page of the program when it is started. Guest can scroll down the page to read more information about the coworking space, such as facility, community, prices, and locations.
 
+<img src='public/doc/Login.png'>
+If a guest wants to order coworking space room or see our menus, guest must create an account and log in to our website.
+
+<img src='public/doc/CustomerLanding.png'>
+After login, this page will show the coworking space room and list of menu to order in the coworking space area.
 
 ## Database Schema
-Below are the database schema used in the program. There are five tables: user, membership, workspace, room, and event that stores different attributes/informations and some refer to another attribute in another table. 
+Below are the database schema used in the program. There are six tables: user, membership, workspace, room, event, and fnb that stores different attributes/informations and some refer to another attribute in another table. 
 
 <img src='public/doc/schema.png'>
 

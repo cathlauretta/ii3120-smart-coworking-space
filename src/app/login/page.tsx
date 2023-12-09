@@ -35,24 +35,24 @@ export default function LoginPage() {
             <Flex w="50%" position={"relative"} bgColor="#FBB6CE">
                 <Flex
                     position={"absolute"}
+                    overflow={"hidden"}
+                    w="100%"
+                    flexDir={"row"}
+                    justifyContent={"right"}
+                >
+                    <Image src="assets/image/Playing-table-tennis.png" />
+                </Flex>
+                <Flex
+                    position={"absolute"}
                     left={0}
                     bottom={0}
                     overflow={"hidden"}
                     w="100%"
                     flexDir={"row"}
                     alignItems={"end"}>
+                    <Image src="/assets/image/List-is-empty.png" />
                     <Image
-                        // position={"absolute"}
-                        // bottom={"0"}
-                        // right={"0"}
-                        src="/assets/image/List-is-empty.png"
-                    />
-                    <Image
-                        // position={"absolute"}
-                        // bottom={"0"}
-                        // left={"0"}
                         src="/assets/image/Friendship.png"
-                        // display={"block"}
                         minH={0}
                         objectFit={"contain"}
                     />
